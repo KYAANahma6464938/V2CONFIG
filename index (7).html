@@ -1,0 +1,2101 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>V2 CONFIG | فروشگاه حرفه‌ای کانفیگ V2Ray</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg-0:#04060d;
+  --bg-1:#070b18;
+  --bg-2:#0b1226;
+  --bg-3:#101a36;
+  --panel:#0c1428cc;
+  --panel-solid:#0c1428;
+  --border:#1b2748;
+  --border-2:#27345f;
+  --text:#e8eeff;
+  --text-2:#9fb0d6;
+  --text-3:#6b7ba0;
+  --navy:#0a1a44;
+  --navy-2:#142a6b;
+  --neon:#00d4ff;
+  --neon-2:#38bdf8;
+  --neon-soft:#7dd3fc;
+  --neon-glow:rgba(0,212,255,.35);
+  --accent:#5b8cff;
+  --accent-2:#7c5bff;
+  --ok:#22d39a;
+  --warn:#ffcc4d;
+  --danger:#ff5d6c;
+  --pending:#ffcc4d;
+  --radius:14px;
+  --radius-lg:20px;
+  --shadow:0 10px 40px rgba(0,0,0,.45);
+  --shadow-neon:0 0 0 1px var(--border-2),0 8px 32px rgba(0,212,255,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:'Vazirmatn',system-ui,sans-serif;
+  background:
+    radial-gradient(1200px 700px at 85% -10%, rgba(0,212,255,.10), transparent 60%),
+    radial-gradient(900px 600px at 5% 0%, rgba(124,91,255,.10), transparent 55%),
+    linear-gradient(180deg,#04060d 0%, #060a16 60%, #04060d 100%);
+  color:var(--text);
+  min-height:100vh;
+  line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border-2);border-radius:8px}
+::selection{background:var(--neon);color:#021019}
+
+/* ===== Top Nav ===== */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:linear-gradient(180deg,rgba(4,6,13,.92),rgba(4,6,13,.78));
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.topbar-inner{
+  max-width:1240px;margin:0 auto;padding:14px 20px;
+  display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+}
+.brand{display:flex;align-items:center;gap:12px;cursor:pointer}
+.brand-logo{
+  width:42px;height:42px;border-radius:11px;
+  background:conic-gradient(from 220deg,#00d4ff,#5b8cff,#7c5bff,#00d4ff);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;color:#021019;font-size:18px;
+  box-shadow:0 0 22px var(--neon-glow);position:relative;
+}
+.brand-logo::after{
+  content:'';position:absolute;inset:3px;border-radius:8px;background:var(--bg-1);
+}
+.brand-logo span{position:relative;z-index:1}
+.brand-name{font-weight:800;font-size:18px;letter-spacing:.5px}
+.brand-name b{color:var(--neon)}
+.brand-tag{font-size:11px;color:var(--text-3);margin-top:-4px}
+.nav-spacer{flex:1}
+.nav-links{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.nav-link{
+  padding:8px 14px;border-radius:9px;color:var(--text-2);
+  font-size:14px;font-weight:500;transition:.18s;
+}
+.nav-link:hover{color:var(--text);background:var(--bg-2)}
+.nav-link.active{color:var(--neon);background:rgba(0,212,255,.08)}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;justify-content:center;
+  padding:10px 18px;border-radius:10px;font-weight:600;font-size:14px;
+  transition:.18s;border:1px solid var(--border-2);background:var(--bg-2);color:var(--text);
+}
+.btn:hover{background:var(--bg-3);border-color:var(--neon)}
+.btn-primary{
+  background:linear-gradient(135deg,var(--neon),var(--accent));
+  color:#021019;border-color:transparent;font-weight:700;
+  box-shadow:0 6px 20px rgba(0,212,255,.25);
+}
+.btn-primary:hover{filter:brightness(1.08);box-shadow:0 8px 28px rgba(0,212,255,.35)}
+.btn-ghost{background:transparent;border-color:var(--border)}
+.btn-danger{background:rgba(255,93,108,.12);border-color:rgba(255,93,108,.4);color:var(--danger)}
+.btn-danger:hover{background:rgba(255,93,108,.2)}
+.btn-sm{padding:7px 12px;font-size:13px;border-radius:8px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.wallet-pill{
+  display:flex;align-items:center;gap:8px;padding:8px 14px;border-radius:30px;
+  background:linear-gradient(135deg,rgba(0,212,255,.12),rgba(124,91,255,.12));
+  border:1px solid var(--border-2);font-size:13px;
+}
+.wallet-pill b{color:var(--neon);font-weight:700}
+.user-chip{display:flex;align-items:center;gap:10px}
+.avatar{
+  width:34px;height:34px;border-radius:50%;
+  background:linear-gradient(135deg,var(--neon),var(--accent-2));
+  color:#021019;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px;
+}
+
+/* ===== Layout ===== */
+.wrap{max-width:1240px;margin:0 auto;padding:28px 20px 80px}
+.page{display:none;animation:fade .35s ease}
+.page.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ===== Hero ===== */
+.hero{
+  position:relative;border-radius:var(--radius-lg);overflow:hidden;
+  padding:60px 40px;border:1px solid var(--border-2);
+  background:
+    radial-gradient(700px 300px at 80% -20%, rgba(0,212,255,.18), transparent 60%),
+    radial-gradient(500px 300px at 10% 120%, rgba(124,91,255,.18), transparent 60%),
+    linear-gradient(180deg,#0a1430,#070d1f);
+  margin-bottom:36px;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(120deg,transparent 30%,rgba(0,212,255,.06) 50%,transparent 70%);
+  background-size:200% 100%;animation:heroSheen 8s linear infinite;
+}
+@keyframes heroSheen{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.hero-grid{position:absolute;inset:0;opacity:.25;
+  background-image:linear-gradient(rgba(0,212,255,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.08) 1px,transparent 1px);
+  background-size:38px 38px;mask-image:radial-gradient(ellipse at center,#000 30%,transparent 75%);
+}
+.hero-content{position:relative;max-width:640px}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:30px;
+  background:rgba(0,212,255,.1);border:1px solid var(--border-2);font-size:12px;color:var(--neon-soft);
+  margin-bottom:18px;
+}
+.hero-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--neon);box-shadow:0 0 10px var(--neon);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+.hero h1{font-size:clamp(28px,5vw,46px);font-weight:800;line-height:1.4;margin-bottom:16px}
+.hero h1 b{
+  background:linear-gradient(135deg,var(--neon),var(--accent-2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.hero p{color:var(--text-2);font-size:16px;margin-bottom:26px;max-width:520px}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+.hero-stats{display:flex;gap:30px;margin-top:32px;flex-wrap:wrap}
+.hero-stat b{font-size:26px;color:var(--neon);font-weight:800;display:block}
+.hero-stat span{color:var(--text-3);font-size:13px}
+
+/* ===== Sections ===== */
+.section-head{display:flex;align-items:center;justify-content:space-between;margin:40px 0 18px;flex-wrap:wrap;gap:12px}
+.section-head h2{font-size:22px;font-weight:700;display:flex;align-items:center;gap:10px}
+.section-head h2::before{content:'';width:4px;height:22px;background:linear-gradient(180deg,var(--neon),var(--accent-2));border-radius:4px}
+.section-head .sub{color:var(--text-3);font-size:13px}
+
+/* Category tabs */
+.cat-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.cat-tab{
+  padding:9px 18px;border-radius:10px;border:1px solid var(--border-2);
+  background:var(--bg-2);color:var(--text-2);font-size:14px;font-weight:600;
+  display:flex;align-items:center;gap:8px;transition:.18s;
+}
+.cat-tab:hover{color:var(--text);border-color:var(--neon)}
+.cat-tab.active{background:linear-gradient(135deg,rgba(0,212,255,.18),rgba(124,91,255,.18));border-color:var(--neon);color:var(--neon)}
+.cat-tab .badge-soon{font-size:10px;padding:2px 7px;border-radius:20px;background:rgba(255,204,77,.15);color:var(--warn);border:1px solid rgba(255,204,77,.3)}
+
+/* Product grid */
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+.product-card{
+  position:relative;border-radius:var(--radius);overflow:hidden;
+  background:linear-gradient(180deg,var(--bg-2),var(--bg-1));
+  border:1px solid var(--border);transition:transform .25s,border-color .25s,box-shadow .25s;
+  display:flex;flex-direction:column;
+}
+.product-card::before{
+  content:'';position:absolute;inset:0;border-radius:var(--radius);padding:1px;pointer-events:none;
+  background:linear-gradient(135deg,transparent 40%,rgba(0,212,255,.5) 50%,transparent 60%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  opacity:0;transition:opacity .25s;
+}
+.product-card:hover{
+  transform:translateY(-6px);
+  border-color:var(--neon);
+  box-shadow:0 16px 48px rgba(0,212,255,.18),0 0 0 1px var(--neon);
+}
+.product-card:hover::before{opacity:1}
+.product-card.disabled{opacity:.6;filter:saturate(.5)}
+/* Premium ribbon for high-tier plans (>= 75GB) */
+.product-card.premium::after{
+  content:'پرمیوم';position:absolute;top:12px;left:12px;z-index:2;
+  background:linear-gradient(135deg,#ffb74d,#ff6f00);color:#1a0a00;
+  font-size:10px;font-weight:800;padding:3px 10px;border-radius:20px;
+  box-shadow:0 4px 14px rgba(255,111,0,.45);letter-spacing:.3px;
+}
+.product-card.best-value::after{
+  content:'پرفروش';background:linear-gradient(135deg,#22d39a,#0ea271);color:#02261a;
+  box-shadow:0 4px 14px rgba(34,211,154,.45);
+}
+.product-head{padding:18px 18px 0;display:flex;justify-content:space-between;align-items:flex-start}
+.product-icon{
+  width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,rgba(0,212,255,.15),rgba(124,91,255,.15));
+  border:1px solid var(--border-2);font-size:22px;
+  transition:.25s;
+}
+.product-card:hover .product-icon{
+  transform:scale(1.08);
+  box-shadow:0 0 18px var(--neon-glow);
+  border-color:var(--neon);
+}
+.product-cat{font-size:11px;color:var(--text-3);padding:4px 10px;border-radius:20px;background:var(--bg-3);border:1px solid var(--border)}
+.product-body{padding:14px 18px 18px;flex:1}
+.product-name{font-size:17px;font-weight:700;margin-bottom:4px}
+.product-desc{font-size:13px;color:var(--text-3);margin-bottom:14px;min-height:72px;line-height:1.7}
+.product-meta{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.meta-item{background:var(--bg-3);border:1px solid var(--border);border-radius:10px;padding:10px;transition:.2s}
+.product-card:hover .meta-item{border-color:var(--border-2);background:var(--bg-2)}
+.meta-item .lbl{font-size:11px;color:var(--text-3);margin-bottom:2px}
+.meta-item .val{font-size:15px;font-weight:700;color:var(--text)}
+.meta-item .val.neon{color:var(--neon)}
+.product-price{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.price-num{font-size:22px;font-weight:800;color:var(--neon)}
+.price-unit{font-size:13px;color:var(--text-3);margin-right:4px}
+.stock-pill{font-size:11px;padding:3px 9px;border-radius:20px}
+.stock-in{background:rgba(34,211,154,.12);color:var(--ok);border:1px solid rgba(34,211,154,.3)}
+.stock-out{background:rgba(255,93,108,.12);color:var(--danger);border:1px solid rgba(255,93,108,.3)}
+.stock-soon{background:rgba(255,204,77,.12);color:var(--warn);border:1px solid rgba(255,204,77,.3)}
+
+/* ===== Forms ===== */
+.auth-wrap{max-width:440px;margin:40px auto}
+.panel{
+  background:var(--panel-solid);border:1px solid var(--border-2);
+  border-radius:var(--radius-lg);padding:28px;box-shadow:var(--shadow);
+}
+.panel-title{font-size:20px;font-weight:700;margin-bottom:6px}
+.panel-sub{color:var(--text-3);font-size:13px;margin-bottom:22px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:13px;color:var(--text-2);margin-bottom:7px;font-weight:500}
+.field input,.field select,.field textarea{
+  width:100%;padding:11px 14px;border-radius:10px;
+  background:var(--bg-1);border:1px solid var(--border-2);color:var(--text);
+  font-size:14px;transition:.18s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  outline:none;border-color:var(--neon);box-shadow:0 0 0 3px rgba(0,212,255,.12)
+}
+.field textarea{resize:vertical;min-height:90px}
+.field .hint{font-size:11px;color:var(--text-3);margin-top:5px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.divider{height:1px;background:var(--border);margin:20px 0}
+.auth-switch{text-align:center;color:var(--text-3);font-size:13px;margin-top:16px}
+.auth-switch a{color:var(--neon);font-weight:600}
+
+/* ===== Dashboard ===== */
+.dash-grid{display:grid;grid-template-columns:260px 1fr;gap:22px;align-items:flex-start}
+.dash-side{
+  position:sticky;top:80px;
+  background:var(--panel-solid);border:1px solid var(--border-2);border-radius:var(--radius);padding:18px;
+}
+.dash-user{display:flex;align-items:center;gap:12px;padding-bottom:16px;border-bottom:1px solid var(--border);margin-bottom:14px}
+.dash-user .info b{font-size:14px;display:block}
+.dash-user .info span{font-size:12px;color:var(--text-3)}
+.dash-menu{display:flex;flex-direction:column;gap:4px}
+.dash-menu button{
+  text-align:right;padding:10px 14px;border-radius:10px;color:var(--text-2);
+  font-size:14px;font-weight:500;transition:.15s;display:flex;align-items:center;gap:10px;
+}
+.dash-menu button:hover{background:var(--bg-2);color:var(--text)}
+.dash-menu button.active{background:linear-gradient(135deg,rgba(0,212,255,.14),rgba(124,91,255,.14));color:var(--neon)}
+.dash-menu .ico{font-size:16px;width:20px;text-align:center}
+.dash-menu .logout{color:var(--danger);margin-top:8px;border-top:1px solid var(--border);padding-top:12px}
+
+.dash-main{min-width:0}
+.dash-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:22px}
+.stat-card{
+  background:linear-gradient(180deg,var(--bg-2),var(--bg-1));border:1px solid var(--border);
+  border-radius:var(--radius);padding:16px;
+}
+.stat-card .lbl{font-size:12px;color:var(--text-3);margin-bottom:6px}
+.stat-card .val{font-size:24px;font-weight:800;color:var(--text)}
+.stat-card .val.neon{color:var(--neon)}
+.stat-card .sub{font-size:11px;color:var(--text-3);margin-top:4px}
+
+.tab-bar{display:flex;gap:6px;border-bottom:1px solid var(--border);margin-bottom:20px;overflow-x:auto;flex-wrap:nowrap}
+.tab-bar button{
+  padding:10px 16px;border-radius:8px 8px 0 0;color:var(--text-2);font-size:14px;font-weight:600;
+  white-space:nowrap;border-bottom:2px solid transparent;transition:.15s;
+}
+.tab-bar button:hover{color:var(--text)}
+.tab-bar button.active{color:var(--neon);border-bottom-color:var(--neon)}
+.tab-pane{display:none;animation:fade .2s}
+.tab-pane.active{display:block}
+
+/* tables */
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius)}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead{background:var(--bg-2)}
+th{padding:12px 14px;text-align:right;font-weight:600;color:var(--text-2);white-space:nowrap;border-bottom:1px solid var(--border)}
+td{padding:11px 14px;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle}
+tbody tr:hover{background:rgba(0,212,255,.03)}
+tbody tr:last-child td{border-bottom:none}
+.mono{font-family:'Courier New',monospace;direction:ltr;text-align:left;font-size:12px}
+
+/* status pills */
+.status{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600;display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.status::before{content:'';width:6px;height:6px;border-radius:50%}
+.st-pending{background:rgba(255,204,77,.12);color:var(--warn)}.st-pending::before{background:var(--warn)}
+.st-approved{background:rgba(34,211,154,.12);color:var(--ok)}.st-approved::before{background:var(--ok)}
+.st-rejected{background:rgba(255,93,108,.12);color:var(--danger)}.st-rejected::before{background:var(--danger)}
+.st-active{background:rgba(34,211,154,.12);color:var(--ok)}.st-active::before{background:var(--ok)}
+.st-expired{background:rgba(255,93,108,.12);color:var(--danger)}.st-expired::before{background:var(--danger)}
+.st-open{background:rgba(0,212,255,.12);color:var(--neon)}.st-open::before{background:var(--neon)}
+.st-closed{background:rgba(107,123,160,.15);color:var(--text-3)}.st-closed::before{background:var(--text-3)}
+.st-answered{background:rgba(124,91,255,.14);color:var(--accent-2)}.st-answered::before{background:var(--accent-2)}
+
+/* config card (bought) */
+.config-card{
+  background:linear-gradient(180deg,var(--bg-2),var(--bg-1));border:1px solid var(--border);
+  border-radius:var(--radius);padding:16px;margin-bottom:12px;
+}
+.config-card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.config-card .name{font-size:15px;font-weight:700;margin-bottom:2px}
+.config-card .meta{font-size:12px;color:var(--text-3)}
+.config-box{
+  background:#020610;border:1px dashed var(--border-2);border-radius:10px;
+  padding:10px 12px;font-family:'Courier New',monospace;direction:ltr;text-align:left;
+  font-size:12px;color:var(--neon-soft);margin:10px 0;word-break:break-all;max-height:90px;overflow:auto;
+}
+.progress{height:6px;background:var(--bg-3);border-radius:6px;overflow:hidden;margin-top:8px}
+.progress > div{height:100%;background:linear-gradient(90deg,var(--neon),var(--accent));border-radius:6px;transition:width .4s}
+.config-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+
+/* tickets */
+.ticket-card{background:var(--bg-2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:12px}
+.ticket-head{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:8px}
+.ticket-subject{font-weight:700}
+.ticket-msg{font-size:13px;color:var(--text-2);background:var(--bg-1);padding:10px;border-radius:8px;margin-top:8px;white-space:pre-wrap}
+.ticket-reply{background:rgba(0,212,255,.06);border-right:3px solid var(--neon);margin-top:8px}
+
+/* admin */
+.admin-grid{display:grid;grid-template-columns:240px 1fr;gap:22px;align-items:flex-start}
+.admin-side{position:sticky;top:80px;background:var(--panel-solid);border:1px solid var(--border-2);border-radius:var(--radius);padding:16px}
+.admin-side h3{font-size:12px;color:var(--text-3);text-transform:uppercase;letter-spacing:1px;padding:8px 10px;margin-bottom:6px}
+.admin-menu{display:flex;flex-direction:column;gap:3px}
+.admin-menu button{text-align:right;padding:9px 12px;border-radius:9px;color:var(--text-2);font-size:13.5px;font-weight:500;display:flex;align-items:center;gap:10px;transition:.15s}
+.admin-menu button:hover{background:var(--bg-2);color:var(--text)}
+.admin-menu button.active{background:linear-gradient(135deg,rgba(255,93,108,.12),rgba(124,91,255,.12));color:var(--text);border:1px solid var(--border-2)}
+.admin-badge{margin-right:auto;background:var(--danger);color:#fff;font-size:10px;padding:1px 7px;border-radius:20px;font-weight:700}
+
+/* modal */
+.modal-back{
+  position:fixed;inset:0;background:rgba(2,4,10,.78);backdrop-filter:blur(6px);
+  z-index:100;display:none;align-items:center;justify-content:center;padding:20px;
+}
+.modal-back.active{display:flex;animation:fade .2s}
+.modal{
+  background:var(--panel-solid);border:1px solid var(--border-2);border-radius:var(--radius-lg);
+  max-width:560px;width:100%;max-height:88vh;overflow:auto;box-shadow:var(--shadow);
+}
+.modal-head{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(--border)}
+.modal-head h3{font-size:17px;font-weight:700}
+.modal-close{font-size:22px;color:var(--text-3);width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{background:var(--bg-2);color:var(--text)}
+.modal-body{padding:22px}
+.modal-foot{padding:16px 22px;border-top:1px solid var(--border);display:flex;justify-content:flex-start;gap:10px}
+
+/* toast */
+.toast-wrap{position:fixed;bottom:24px;left:24px;z-index:200;display:flex;flex-direction:column;gap:10px;max-width:340px}
+.toast{
+  background:var(--panel-solid);border:1px solid var(--border-2);border-radius:12px;
+  padding:13px 16px;font-size:13.5px;box-shadow:var(--shadow);display:flex;align-items:flex-start;gap:10px;
+  animation:slidein .3s; border-right:3px solid var(--neon);
+}
+.toast.ok{border-right-color:var(--ok)}
+.toast.err{border-right-color:var(--danger)}
+.toast.warn{border-right-color:var(--warn)}
+@keyframes slidein{from{transform:translateX(-30px);opacity:0}to{transform:none;opacity:1}}
+
+/* misc */
+.empty{text-align:center;padding:40px 20px;color:var(--text-3)}
+.empty .ico{font-size:42px;opacity:.5;margin-bottom:10px}
+.muted{color:var(--text-3)}
+.center{text-align:center}
+.right{text-align:right}
+.flex{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.spread{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.gap-sm{gap:6px}
+.mt{margin-top:14px}.mt-lg{margin-top:24px}.mb{margin-bottom:14px}.mb-lg{margin-bottom:24px}
+.tag{font-size:11px;padding:2px 8px;border-radius:6px;background:var(--bg-3);border:1px solid var(--border);color:var(--text-2)}
+.hint-box{background:rgba(0,212,255,.05);border:1px solid var(--border-2);border-radius:10px;padding:12px 14px;font-size:12.5px;color:var(--text-2);margin-bottom:14px}
+.hint-box b{color:var(--neon)}
+.detail-list{display:flex;flex-direction:column;gap:8px}
+.detail-list .row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--border);font-size:13px}
+.detail-list .row span:first-child{color:var(--text-3)}
+.notice{background:rgba(255,204,77,.06);border:1px solid rgba(255,204,77,.25);color:var(--warn);padding:10px 14px;border-radius:10px;font-size:13px;margin-bottom:14px}
+
+footer{border-top:1px solid var(--border);padding:24px 20px;text-align:center;color:var(--text-3);font-size:12.5px}
+footer a{color:var(--neon-soft)}
+
+/* ===== Responsive ===== */
+@media(max-width:880px){
+  .dash-grid,.admin-grid{grid-template-columns:1fr}
+  .dash-side,.admin-side{position:static}
+  .hero{padding:36px 22px}
+  .nav-links .nav-link{display:none}
+}
+@media(max-width:640px){
+  .topbar-inner{padding:12px 14px}
+  .wrap{padding:20px 14px 60px}
+  .panel{padding:20px}
+  .product-meta{grid-template-columns:1fr 1fr}
+  .field-row{grid-template-columns:1fr}
+  .brand-tag{display:none}
+  .wallet-pill .label{display:none}
+  .hero-stats{gap:18px}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand" onclick="nav('home')">
+      <div class="brand-logo"><span>V2</span></div>
+      <div>
+        <div class="brand-name">V2 <b>CONFIG</b></div>
+        <div class="brand-tag">فروشگاه حرفه‌ای کانفیگ</div>
+      </div>
+    </div>
+    <div class="nav-spacer"></div>
+    <nav class="nav-links">
+      <button class="nav-link" data-nav="home" onclick="nav('home')">خانه</button>
+      <button class="nav-link" data-nav="products" onclick="nav('products')">محصولات</button>
+      <button class="nav-link" data-nav="dashboard" onclick="nav('dashboard')" id="navDash" style="display:none">پنل کاربری</button>
+      <button class="nav-link" data-nav="admin" onclick="nav('admin')" id="navAdmin" style="display:none">پنل مدیریت</button>
+    </nav>
+    <div id="guestActions" class="flex gap-sm">
+      <button class="btn btn-ghost btn-sm" onclick="nav('login')">ورود</button>
+      <button class="btn btn-primary btn-sm" onclick="nav('register')">ثبت‌نام</button>
+    </div>
+    <div id="userActions" class="flex gap-sm" style="display:none">
+      <div class="wallet-pill"><span class="label">کیف پول:</span> <b id="navWallet">۰ تومان</b></div>
+      <div class="user-chip">
+        <div class="avatar" id="navAvatar">U</div>
+        <button class="btn btn-ghost btn-sm" onclick="nav('dashboard')">پنل من</button>
+      </div>
+      <button class="btn btn-danger btn-sm" onclick="logout()">خروج</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PAGES CONTAINER ============ -->
+<div class="wrap" id="app">
+
+  <!-- ====== HOME ====== -->
+  <section class="page active" id="page-home">
+    <div class="hero">
+      <div class="hero-grid"></div>
+      <div class="hero-content">
+        <span class="hero-badge"><span class="dot"></span> سرویس‌ها فعال و آماده تحویل آنی</span>
+        <h1>فروشگاه <b>V2 CONFIG</b><br>کانفیگ‌های پایدار و حرفه‌ای V2Ray</h1>
+        <p>کانفیگ‌های اختصاصی V2RayNG و V2Box با حجم و مدت اعتبار دلخواه، تحویل خودکار پس از پرداخت، پنل کاربری کامل و پشتیبانی آنلاین. کیف پول داخلی، تاریخچه خرید و تمدید، همه در یک جا.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary" onclick="nav('products')">مشاهده کانفیگ‌ها ←</button>
+          <button class="btn btn-ghost" onclick="nav('register')">ساخت حساب کاربری</button>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><b id="statProducts">۰</b><span>محصول فعال</span></div>
+          <div class="hero-stat"><b id="statUsers">۰</b><span>کاربر ثبت‌شده</span></div>
+          <div class="hero-stat"><b>۲۴/۷</b><span>پشتیبانی</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-head">
+      <div>
+        <h2>کانفیگ‌های موجود</h2>
+        <div class="sub">یک دسته‌بندی را انتخاب کنید</div>
+      </div>
+    </div>
+
+    <div class="cat-tabs" id="catTabs">
+      <button class="cat-tab active" data-cat="all" onclick="filterCat('all')">همه</button>
+      <button class="cat-tab" data-cat="v2rayng" onclick="filterCat('v2rayng')">V2RayNG</button>
+      <button class="cat-tab" data-cat="v2box" onclick="filterCat('v2box')">V2Box</button>
+      <button class="cat-tab" data-cat="openvpn" onclick="filterCat('openvpn')">OpenVPN <span class="badge-soon">به‌زودی</span></button>
+    </div>
+
+    <div class="product-grid" id="productGrid"></div>
+  </section>
+
+  <!-- ====== PRODUCTS PAGE ====== -->
+  <section class="page" id="page-products">
+    <div class="section-head">
+      <div><h2>همه محصولات</h2><div class="sub">انتخاب و خرید آنی</div></div>
+    </div>
+    <div class="cat-tabs" id="catTabs2">
+      <button class="cat-tab active" data-cat="all" onclick="filterCat('all')">همه</button>
+      <button class="cat-tab" data-cat="v2rayng" onclick="filterCat('v2rayng')">V2RayNG</button>
+      <button class="cat-tab" data-cat="v2box" onclick="filterCat('v2box')">V2Box</button>
+      <button class="cat-tab" data-cat="openvpn" onclick="filterCat('openvpn')">OpenVPN <span class="badge-soon">به‌زودی</span></button>
+    </div>
+    <div class="product-grid" id="productGrid2"></div>
+  </section>
+
+  <!-- ====== AUTH ====== -->
+  <section class="page" id="page-login">
+    <div class="auth-wrap">
+      <div class="panel">
+        <div class="panel-title center">ورود به حساب کاربری</div>
+        <div class="panel-sub center">برای خرید و مدیریت کانفیگ‌ها وارد شوید</div>
+        <form onsubmit="return doLogin(event)">
+          <div class="field">
+            <label>نام کاربری یا ایمیل</label>
+            <input id="lgUser" type="text" placeholder="نام کاربری" required>
+          </div>
+          <div class="field">
+            <label>رمز عبور</label>
+            <input id="lgPass" type="password" placeholder="••••••••" required>
+          </div>
+          <button class="btn btn-primary" style="width:100%">ورود</button>
+        </form>
+        <div class="auth-switch">حساب کاربری ندارید؟ <a onclick="nav('register')">ثبت‌نام کنید</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="page" id="page-register">
+    <div class="auth-wrap">
+      <div class="panel">
+        <div class="panel-title center">ساخت حساب جدید</div>
+        <div class="panel-sub center">اطلاعات خود را وارد کنید</div>
+        <form onsubmit="return doRegister(event)">
+          <div class="field-row">
+            <div class="field"><label>نام و نام خانوادگی</label><input id="rgName" type="text" placeholder="مثلاً علی رضایی" required></div>
+            <div class="field"><label>شماره موبایل</label><input id="rgPhone" type="tel" inputmode="numeric" placeholder="09xxxxxxxxx" required></div>
+          </div>
+          <div class="field-row">
+            <div class="field"><label>نام کاربری</label><input id="rgUser" type="text" placeholder="نام کاربری انگلیسی" required></div>
+            <div class="field"><label>ایمیل</label><input id="rgEmail" type="email" placeholder="email@example.com" required></div>
+          </div>
+          <div class="field"><label>رمز عبور</label><input id="rgPass" type="password" placeholder="حداقل ۶ کاراکتر" required minlength="6"></div>
+          <button class="btn btn-primary" style="width:100%">ثبت‌نام</button>
+        </form>
+        <div class="auth-switch">حساب دارید؟ <a onclick="nav('login')">وارد شوید</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== USER DASHBOARD ====== -->
+  <section class="page" id="page-dashboard">
+    <div id="dashContainer"></div>
+  </section>
+
+  <!-- ====== ADMIN ====== -->
+  <section class="page" id="page-admin">
+    <div id="adminContainer"></div>
+  </section>
+
+</div>
+
+<!-- ============ MODAL ============ -->
+<div class="modal-back" id="modalBack" onclick="if(event.target===this)closeModal()">
+  <div class="modal" id="modal"></div>
+</div>
+
+<!-- ============ TOASTS ============ -->
+<div class="toast-wrap" id="toastWrap"></div>
+
+<footer>
+  © ۲۰۲۶ V2 CONFIG — فروشگاه آنلاین کانفیگ V2Ray · تمام حقوق محفوظ است ·
+  <a onclick="nav('home')">خانه</a> ·
+  <a onclick="nav('products')">محصولات</a> ·
+  ساخته‌شده با طراحی مدرن و امن
+</footer>
+
+<script>
+/* =====================================================================
+   V2 CONFIG — Single-file demo storefront
+   NOTE: This is a UI/UX prototype. Data is stored in localStorage.
+   It is NOT production-secure. See README for the recommended
+   server-side architecture (Supabase + RLS + Edge Functions).
+   ===================================================================== */
+'use strict';
+
+// ---------- Persian number helpers ----------
+const FA = '۰۱۲۳۴۵۶۷۸۹';
+const toFa = s => String(s).replace(/\d/g, d => FA[+d]);
+const toEn = s => String(s).replace(/[۰-۹]/g, d => FA.indexOf(d));
+const fmtToman = n => toFa(Number(n||0).toLocaleString('en-US')) + ' تومان';
+const fmtGB = (gb) => {
+  if (gb == null) return '—';
+  if (gb >= 1) return toFa(Number.isInteger(gb)?gb:gb.toFixed(2).replace(/\.?0+$/,'')) + ' گیگابایت';
+  return toFa((gb*1024).toFixed(0)) + ' مگابایت';
+};
+const fmtDate = ts => {
+  if (!ts) return '—';
+  const d = new Date(ts);
+  return toFa(d.toLocaleDateString('fa-IR',{year:'numeric',month:'long',day:'numeric'}));
+};
+const fmtDateTime = ts => {
+  if (!ts) return '—';
+  const d = new Date(ts);
+  return toFa(d.toLocaleDateString('fa-IR',{year:'numeric',month:'long',day:'numeric'}) + ' - ' +
+    d.toLocaleTimeString('en-IR',{hour:'2-digit',minute:'2-digit',hour12:false}));
+};
+const daysLeft = ts => ts ? Math.max(0, Math.ceil((ts-Date.now())/86400000)) : 0;
+
+// ---------- Seed database ----------
+const SEED = {
+  settings: {
+    shopName: 'V2 CONFIG',
+    paymentCard: '6219-8619-6972-2841',
+    paymentName: 'منیژه سعیدی',
+    paymentDesc: 'برای خرید کانفیگ، مبلغ را به کارت بالا واریز کنید و تصویر رسید را در همین صفحه آپلود نمایید. سفارش پس از تأیید رسید، بلافاصله فعال می‌شود.',
+  },
+  admin: {
+    username: 'admin',
+    // NOTE: in production this MUST be a server-side bcrypt hash.
+    password: 'admin1234',
+    twoFactor: '832614', // demo 2FA code
+  },
+  products: [
+    // Each product carries its own `config` (the real subscription link / VLESS string the
+    // user receives on purchase) and a `stock` counter = how many times this same config
+    // can be sold. When stock reaches 0 the product shows "ناموجود". The admin can change
+    // `config` and `stock` at any time from the admin panel (Products → ✏️). Default stock = 2
+    // so each real subscription link can be sold twice before the owner refills it.
+    {id:'p1', cat:'v2rayng', name:'کانفیگ V2RayNG اقتصاد ۱۰ گیگ',  desc:'۱۰ گیگابایت حجم واقعی با سرعت پایدار برای استفاده روزانه. بهترین انتخاب برای مرور وب، شبکه‌های اجتماعی و تماشای ویدیو با کیفیت متوسط. پینگ پایین و آپتایم بالای ۹۹٪ روی سرورهای اروپا.', volume:10, duration:30, price:55000,  active:true, stock:2, config:'https://svn.mobiletanaz.com:2053/sub/djMsMzUzMTM2LDE3OTU0NTUzOTk._MP5_96S913jhiCGTUIOjVut2y3pHaVoQgJYviMeBkE'},
+    {id:'p2', cat:'v2rayng', name:'کانفیگ V2RayNG استاندارد ۱۵ گیگ', desc:'۱۵ گیگابایت حجم با پشتیبانی از پروتکل VLESS و Reality. مناسب برای کاربران حرفه‌ای که کیفیت اتصال و سرعت دانلود بالا می‌خواهند. رمزگذاری کامل و مقاوم در برابر فیلترینگ.', volume:15, duration:30, price:85000,  active:true, stock:2, config:'https://svn.mobiletanaz.com:2053/sub/djMsMzUxNTExLDE3OTU0NTU0NzU.rGBfqfRmbnQ9OIMh4HRWsMMhg74J129lS49l0uH1vTI'},
+    {id:'p3', cat:'v2rayng', name:'کانفیگ V2RayNG پرمیوم ۲۰ گیگ', desc:'۲۰ گیگابایت حجم با سرورهای اختصاصی و چند مسیریابی هوشمند. گزینه‌ی نخست برای گیمرها، استریمرها و کاربران سنگین. پشتیبانی از CDN و آی‌پی تمیز.', volume:20, duration:30, price:110000, active:true, stock:2, config:'https://svn.mobiletanaz.com:2053/sub/djMsMzUxNTE2LDE3OTU0NTU1MDc.GWaztuXwhvIlaxoiIFtZAS6PZJ06Srf6Zb4jRmLuXIA'},
+    {id:'p4', cat:'v2rayng', name:'کانفیگ V2RayNG نامحدود ۳۰ گیگ', desc:'۳۰ گیگابایت حجم برای یک ماه کامل با تضمین پایداری. مناسب برای خانواده‌ها و استفاده همزمان روی چند دستگاه. کانفیگ با قابلیت اشتراک‌گذاری امن بین دستگاه‌های شخصی.', volume:30, duration:30, price:165000, active:true, stock:2, config:'https://svn.mobiletanaz.com:2053/sub/djMsMzUxNTE5LDE3OTU0NTU1Mzk.1SROtFFsGVatTXixtX_5rgNpbzk_IU95p0EnODMQ__g'},
+    {id:'p5', cat:'v2rayng', name:'کانفیگ V2RayNG پلاس ۴۰ گیگ', desc:'۴۰ گیگابایت حجم با سرورهای پرمیوم اروپا و آمریکای شمالی. ایده‌آل برای دانلودهای سنگین، استریم 4K و کار تیمی. شامل پشتیبانی ۲۴ ساعته و آی‌پی تمیز.', volume:40, duration:30, price:220000, active:true, stock:2, config:'https://svn.mobiletanaz.com:2053/sub/djMsMzUxNTIwLDE3OTU0NTU1Nzc.iOx9g9D_ltfX0ZdO7xq3bFt-yJeajCmjL16dpgnYpOY'},
+    {id:'p6', cat:'v2rayng', name:'کانفیگ V2RayNG الترا ۵۰ گیگ', desc:'۵۰ گیگابایت حجم با پهنای باند نامحدود و اولویت اتصال بالا. طراحی‌شده برای کسب‌وکارها و کاربران حرفه‌ای که نیاز به اتصال بی‌وقفه دارند. شامل ۲ کانفیگ همزمان.', volume:50, duration:30, price:275000, active:true, stock:2, config:'https://svn.mobiletanaz.com:2053/sub/djMsMzUxNTIxLDE3OTU0NTU2MTI.hKHZ99YNT0Iajze66VmO--ehBZCDsJurCRCroBnBonA'},
+    {id:'p16', cat:'v2rayng', name:'کانفیگ V2RayNG پاور ۶۰ گیگ', desc:'۶۰ گیگابایت حجم با تعادل عالی بین قیمت و ظرفیت. مناسب برای کاربران نیمه‌سنگین که دانلود و استریم متوسطی دارند. سرعت پایدار روی تمام سرورهای اروپایی و آی‌پی تمیز.', volume:60, duration:30, price:330000, active:true, stock:2, config:'https://svn.mobiletanaz.com:2053/sub/djMsMzUxNTI4LDE3OTU0NTU2MzQ.oR6r9lJc7iLkWyIhj4T35bbTH9NsO04MUSJUOKmVCpU'},
+    {id:'p7', cat:'v2rayng', name:'کانفیگ V2RayNG مگا ۷۵ گیگ', desc:'۷۵ گیگابایت حجم ویژه برای کاربران فوق سنگین. مناسب برای استریمرها، توسعه‌دهندگان و تیم‌های دورکار. تضمین سرعت دانلود تا ۱ گیگابیت و آپتایم ۹۹.۹٪.', volume:75, duration:30, price:410000, active:true, stock:2, config:'https://svn.mobiletanaz.com:2053/sub/djMsMzUzMTQ1LDE3OTU0NTU2ODQ.euvTckSWbP33nit3MFnZvkHLTfw67Uyy0DYfu_saxPQ'},
+    // ---- Products below have NO real subscription link yet. stock:0 → "ناموجود" until
+    //      the shop owner refills them from Admin → Products → ✏️ → paste link + set stock. ----
+    {id:'p8', cat:'v2rayng', name:'کانفیگ V2RayNG تایتان ۱۰۰ گیگ', desc:'۱۰۰ گیگابایت حجم با دسترسی به تمام سرورهای اختصاصی. گزینه‌ی محبوب کسب‌وکارهای متوسط و کاربران VIP. شامل آی‌پی اختصاصی، پشتیبانی اولویت‌دار و کانفیگ مولتی‌سرور.', volume:100, duration:30, price:550000, active:true, stock:0, config:''},
+    {id:'p9', cat:'v2rayng', name:'کانفیگ V2RayNG غول ۱۵۰ گیگ', desc:'۱۵۰ گیگابایت حجم برای یک ماه کامل با پشتیبانی از چند دستگاه همزمان. مناسب برای دفترهای کوچک، خانواده‌های بزرگ و کاربران حرفه‌ای. شامل ۳ کانفیگ همزمان و پشتیبانی VIP.', volume:150, duration:30, price:825000, active:true, stock:0, config:''},
+    {id:'p10', cat:'v2rayng', name:'کانفیگ V2RayNG کیهان ۲۰۰ گیگ', desc:'۲۰۰ گیگابایت حجم، بزرگ‌ترین پلن ما. مناسب برای سازمان‌ها، تیم‌های فنی و کاربران Enterprise. شامل سرور اختصاصی، آی‌پی ثابت، ۵ کانفیگ همزمان و پشتیبانی اختصاصی ۲۴/۷.', volume:200, duration:30, price:1100000, active:true, stock:0, config:''},
+    {id:'p11', cat:'v2box',   name:'کانفیگ V2Box آیفون ۱۵ گیگ',     desc:'۱۵ گیگابایت حجم اختصاصی برای iOS، بهینه‌شده برای آیفون و آیپد. نصب آسان با یک کلیک در V2Box، پایداری بالا در شبکه‌های 4G/5G و مصرف باتری بهینه.', volume:15, duration:30, price:85000,  active:true, stock:0, config:''},
+    {id:'p12', cat:'v2box',   name:'کانفیگ V2Box پرو ۲۰ گیگ',  desc:'۲۰ گیگابایت حجم با چند سرور اروپایی برای کاربران اپل. پشتیبانی از Reality و جریان WS، مناسب برای استفاده‌ی سنگین، کار با اپلیکیشن‌های بانکی و تماس تصویری پایدار.', volume:20, duration:30, price:110000,  active:true, stock:0, config:''},
+    {id:'p13', cat:'v2box',   name:'کانفیگ V2Box الترا ۵۰ گیگ', desc:'۵۰ گیگابایت حجم ویژه iOS با پشتیبانی از Apple Private Relay و بهینه‌سازی باتری. مناسب برای کاربران اپل که اتصال بی‌وقفه و مصرف بهینه می‌خواهند.', volume:50, duration:30, price:275000,  active:true, stock:0, config:''},
+    {id:'p14', cat:'v2box',   name:'کانفیگ V2Box تایتان ۱۰۰ گیگ', desc:'۱۰۰ گیگابایت حجم برای کاربران اپل حرفه‌ای. شامل چند سرور اختصاصی، آی‌پی تمیز و پشتیبانی از iCloud Private Relay. ایده‌آل برای توسعه‌دهندگان iOS و طراحان.', volume:100, duration:30, price:550000, active:true, stock:0, config:''},
+    {id:'p15', cat:'openvpn',  name:'کانفیگ OpenVPN Pro',        desc:'به‌زودی در دسترس قرار می‌گیرد — کانفیگ OpenVPN با رمزنگاری AES-256 برای کاربرانی که بالاترین سطح امنیت را می‌خواهند.', volume:0,  duration:0,  price:0,     active:false, soon:true, stock:0, config:''},
+  ],
+  // `configs` array is kept for backward-compat with old DB records. New model:
+  // the real config string lives on the product (product.config) and remaining
+  // sales are tracked by product.stock. Purchases create a record in `orders`
+  // that snapshots the config string at the moment of sale.
+  configs: [],
+  users: [
+    {id:'u1', name:'کاربر نمونه', username:'demo', email:'demo@v2config.local', phone:'09123456789', password:'demo123', wallet:100000, createdAt:Date.now()-86400000*5, active:true},
+  ],
+  orders: [],
+  charges: [],
+  tickets: [],
+  logs: [
+    {id:1, ts:Date.now()-86400000*3, actor:'admin', action:'سیستم راه‌اندازی شد و داده‌های اولیه بارگذاری شد'},
+    {id:2, ts:Date.now()-86400000*2, actor:'admin', action:'محصول «کانفیگ V2RayNG استاندارد ۱۵ گیگ» اضافه شد'},
+  ],
+};
+
+// ---------- Persistence layer ----------
+const DB = {
+  _key:'v2config_db_v1',
+  _seedVer:7, // v7: real subscription links wired for 10-75GB + new 60GB plan
+  load(){
+    try{
+      const raw = localStorage.getItem(this._key);
+      if(!raw){ this.save(SEED); return JSON.parse(JSON.stringify(SEED)); }
+      const data = JSON.parse(raw);
+      // Always re-sync admin credentials and shop settings from SEED,
+      // so users on stale localStorage still log in with current credentials.
+      data.admin   = JSON.parse(JSON.stringify(SEED.admin));
+      data.settings= JSON.parse(JSON.stringify(SEED.settings));
+      // When SEED version bumps (e.g. new product catalog), refresh seed
+      // products while keeping real user data (orders, charges, tickets, users, logs).
+      // Old model had a separate `configs` array; new model stores `config` + `stock`
+      // on each product. We drop unsold old configs and re-add the fresh seed products
+      // (which now carry their own config + stock). Sold configs are migrated into
+      // `orders` if not already present.
+      if(!data._seedVer || data._seedVer < this._seedVer){
+        const seedProdIds = new Set(SEED.products.map(p=>p.id));
+        // migrate any sold old configs into orders (so users keep their purchases)
+        (data.configs||[]).filter(c=>c.status==='sold' && c.buyerId).forEach(c=>{
+          const existing = data.orders.find(o=>o.configId===c.id);
+          if(existing){
+            // backfill the new fields on an existing order that lacks them
+            if(!existing.configSnapshot) existing.configSnapshot=c.config;
+            if(existing.totalVolume===undefined) existing.totalVolume=c.totalVolume||existing.volume||0;
+            if(existing.usedVolume===undefined) existing.usedVolume=0;
+          }else{
+            data.orders.unshift({
+              id:c.orderId||uid('o'), userId:c.buyerId, productId:c.productId,
+              productName:(data.products.find(p=>p.id===c.productId)||{}).name||'کانفیگ',
+              configId:c.id, configSnapshot:c.config, price:0, volume:c.totalVolume||0,
+              totalVolume:c.totalVolume||0, usedVolume:0,
+              duration: c.expiresAt?Math.round((c.expiresAt-(c.soldAt||Date.now()))/86400000):0,
+              createdAt:c.soldAt||Date.now(), status:'active', expiresAt:c.expiresAt||0
+            });
+          }
+        });
+        // remove old seed products and ALL old configs (new model has none)
+        data.products = (data.products||[]).filter(p=>!seedProdIds.has(p.id));
+        data.configs  = [];
+        // add fresh seed products (each carries its own config + stock)
+        SEED.products.forEach(p=>data.products.push(JSON.parse(JSON.stringify(p))));
+        data._seedVer = this._seedVer;
+      }
+      // Ensure every product has the new fields even if added by older code paths
+      (data.products||[]).forEach(p=>{
+        if(p.config===undefined) p.config='';
+        if(p.stock===undefined) p.stock=0;
+      });
+      this.save(data);
+      return data;
+    }catch(e){ this.save(SEED); return JSON.parse(JSON.stringify(SEED)); }
+  },
+  save(db){ localStorage.setItem(this._key, JSON.stringify(db)); },
+  reset(){ localStorage.removeItem(this._key); this.save(JSON.parse(JSON.stringify(SEED))); }
+};
+
+let db = DB.load();
+let session = JSON.parse(localStorage.getItem('v2config_session')||'null'); // {type:'user'|'admin', id, name}
+let currentCat = 'all';
+let dashTab = 'overview';
+let adminTab = 'dashboard';
+let currentModalContext = null;
+
+// ---------- Toast ----------
+function toast(msg, kind=''){
+  const w = document.getElementById('toastWrap');
+  const t = document.createElement('div');
+  t.className = 'toast '+kind;
+  t.innerHTML = `<div style="flex:1">${msg}</div><button onclick="this.parentElement.remove()" style="color:var(--text-3)">✕</button>`;
+  w.appendChild(t);
+  setTimeout(()=>{ if(t.parentElement) t.remove(); }, 4500);
+}
+
+// ---------- Modal ----------
+function openModal(html){
+  document.getElementById('modal').innerHTML = html;
+  document.getElementById('modalBack').classList.add('active');
+}
+function closeModal(){ document.getElementById('modalBack').classList.remove('active'); currentModalContext=null; }
+
+// ---------- Session helpers ----------
+function saveSession(){ localStorage.setItem('v2config_session', JSON.stringify(session)); }
+function currentUser(){ return session && session.type==='user' ? db.users.find(u=>u.id===session.id) : null; }
+function requireUser(){ const u=currentUser(); if(!u){ toast('ابتدا وارد شوید','warn'); nav('login'); return null;} return u; }
+
+// ---- New inventory model helpers ----
+// In the new model the real config string is snapshotted on each order (order.configSnapshot).
+// These helpers expose a buyer's purchased configs in a shape compatible with the old
+// dashboard code (buyerId, status, expiresAt, totalVolume, usedVolume, config, id, productId).
+function userConfigs(u){ // returns active+expired purchases for a user, newest first
+  if(!u) return [];
+  return db.orders
+    .filter(o=>o.userId===u.id)
+    .map(o=>({
+      id:o.id, productId:o.productId,
+      config:o.configSnapshot||'',
+      buyerId:o.userId,
+      status: (o.expiresAt && o.expiresAt>Date.now()) ? 'sold' : 'expired',
+      soldAt:o.createdAt,
+      expiresAt:o.expiresAt||0,
+      totalVolume:o.totalVolume||o.volume||0,
+      usedVolume:o.usedVolume||0,
+      orderId:o.id
+    }))
+    .sort((a,b)=>b.soldAt-a.soldAt);
+}
+// total remaining stock across all products (for admin dashboard stat)
+function totalAvailableStock(){
+  return db.products.reduce((s,p)=>s+(p.soon?0:(Number(p.stock)||0)),0);
+}
+// active (non-expired) configs across all users (admin dashboard stat)
+function totalActiveConfigs(){
+  const now=Date.now();
+  return db.orders.filter(o=>o.expiresAt && o.expiresAt>now).length;
+}
+
+function uid(prefix){ return prefix + Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+
+// ---------- Audit log ----------
+function addLog(action, actor=session?session.name:'system'){
+  db.logs.unshift({id:db.logs.length?db.logs[0].id+1:1, ts:Date.now(), actor, action});
+  DB.save(db);
+}
+
+// ---------- Navigation ----------
+function nav(page){
+  // gate
+  if(page==='dashboard' && !currentUser()){ nav('login'); return; }
+  if(page==='admin' && !(session && session.type==='admin')){ nav('adminLogin'); return; }
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const el = document.getElementById('page-'+page);
+  if(el){ el.classList.add('active'); }
+  document.querySelectorAll('.nav-link').forEach(n=>{
+    n.classList.toggle('active', n.dataset.nav===page);
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(page==='home'){ renderHome(); }
+  if(page==='products'){ renderProducts(); }
+  if(page==='dashboard'){ renderDashboard(); }
+  if(page==='admin'){ renderAdmin(); }
+  syncTopbar();
+}
+
+// ---------- Topbar sync ----------
+function syncTopbar(){
+  const u = currentUser();
+  const isAdmin = session && session.type==='admin';
+  document.getElementById('guestActions').style.display = u ? 'none' : 'flex';
+  document.getElementById('userActions').style.display = u ? 'flex' : 'none';
+  document.getElementById('navDash').style.display = u ? '' : 'none';
+  document.getElementById('navAdmin').style.display = isAdmin ? '' : 'none';
+  if(u){
+    document.getElementById('navWallet').textContent = fmtToman(u.wallet);
+    document.getElementById('navAvatar').textContent = (u.name||u.username||'U').trim().charAt(0);
+  }
+}
+</script>
+<script>
+// ============ AUTH ============
+function doRegister(e){
+  e.preventDefault();
+  const name=rgName.value.trim(), phone=rgPhone.value.trim(), user=rgUser.value.trim(),
+        email=rgEmail.value.trim(), pass=rgPass.value;
+  if(db.users.some(u=>u.username===user)){ toast('این نام کاربری قبلاً گرفته شده','err'); return false; }
+  if(db.users.some(u=>u.email===email)){ toast('این ایمیل قبلاً ثبت شده','err'); return false; }
+  if(!/^09\d{9}$/.test(toEn(phone))){ toast('شماره موبایل معتبر نیست (09xxxxxxxxx)','err'); return false; }
+  const u={id:uid('u'),name,username:user,email,phone,password:pass,wallet:0,createdAt:Date.now(),active:true};
+  db.users.push(u); DB.save(db);
+  addLog('کاربر جدید ثبت‌نام کرد: '+user, user);
+  session={type:'user',id:u.id,name:u.username}; saveSession();
+  toast('ثبت‌نام موفق بود. خوش آمدید!','ok');
+  nav('dashboard');
+  return false;
+}
+
+function doLogin(e){
+  e.preventDefault();
+  const id=lgUser.value.trim(), pass=lgPass.value;
+  // admin login?
+  if(id===db.admin.username && pass===db.admin.password){
+    open2FAModal();
+    return false;
+  }
+  const u=db.users.find(u=>(u.username===id||u.email===id)&&u.password===pass);
+  if(!u){ toast('نام کاربری یا رمز اشتباه است','err'); return false; }
+  if(!u.active){ toast('حساب شما غیرفعال است. با پشتیبانی تماس بگیرید.','err'); return false; }
+  session={type:'user',id:u.id,name:u.username}; saveSession();
+  addLog('ورود کاربر: '+u.username, u.username);
+  toast('خوش آمدید '+u.name,'ok');
+  nav('dashboard');
+  return false;
+}
+
+function open2FAModal(){
+  openModal(`
+    <div class="modal-head"><h3>احراز هویت دو مرحله‌ای</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="hint-box">کد ۶ رقمی ارسال‌شده به دستگاه مدیر را وارد کنید. <b>(دمو: <span dir="ltr">${toFa(db.admin.twoFactor)}</span>)</b></div>
+      <div class="field"><label>کد تایید</label><input id="otp" type="text" inputmode="numeric" maxlength="6" placeholder="۱۲۳۴۵۶" autocomplete="one-time-code"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-primary" onclick="verify2FA()">تایید و ورود</button>
+      <button class="btn btn-ghost" onclick="closeModal()">انصراف</button>
+    </div>
+  `);
+  setTimeout(()=>document.getElementById('otp').focus(),100);
+}
+
+function verify2FA(){
+  const v=toEn(document.getElementById('otp').value.trim());
+  if(v!==db.admin.twoFactor){ toast('کد تایید اشتباه است','err'); return; }
+  session={type:'admin',id:'admin',name:'admin'}; saveSession();
+  addLog('ورود مدیر با 2FA موفق','admin');
+  closeModal();
+  toast('به پنل مدیریت خوش آمدید','ok');
+  nav('admin');
+}
+
+function logout(){
+  session=null; localStorage.removeItem('v2config_session');
+  syncTopbar();
+  nav('home');
+  toast('از حساب خارج شدید');
+}
+</script>
+<script>
+// ============ HOME + PRODUCTS ============
+function renderHome(){
+  document.getElementById('statProducts').textContent = toFa(db.products.filter(p=>p.active&&!p.soon).length);
+  document.getElementById('statUsers').textContent = toFa(db.users.length);
+  renderProductGrid('productGrid');
+}
+
+function renderProducts(){ renderProductGrid('productGrid2'); }
+
+function filterCat(cat){
+  currentCat=cat;
+  document.querySelectorAll('.cat-tab').forEach(t=>t.classList.toggle('active',t.dataset.cat===cat));
+  renderProductGrid('productGrid');
+  renderProductGrid('productGrid2');
+}
+
+function renderProductGrid(elId){
+  let list=db.products.slice();
+  if(currentCat!=='all') list=list.filter(p=>p.cat===currentCat);
+  const grid=document.getElementById(elId);
+  if(!list.length){ grid.innerHTML=`<div class="empty" style="grid-column:1/-1"><div class="ico">📭</div>محصولی در این دسته یافت نشد</div>`; return; }
+  grid.innerHTML = list.map(p=>{
+    const inv = p.soon ? 0 : (Number(p.stock)||0);
+    const soon = p.soon;
+    const outOfStock = !soon && p.active && inv===0;
+    const stockPill = soon
+      ? `<span class="stock-pill stock-soon">به‌زودی</span>`
+      : (inv>0 ? `<span class="stock-pill stock-in">${toFa(inv)} موجود</span>` : `<span class="stock-pill stock-out">ناموجود</span>`);
+    const catFa = p.cat==='v2rayng'?'V2RayNG':p.cat==='v2box'?'V2Box':'OpenVPN';
+    const icon = p.cat==='v2rayng'?'🛰️':p.cat==='v2box'?'📱':'🔒';
+    const disabled = (!p.active || outOfStock) ? 'disabled' : '';
+    // Premium ribbon for high-tier plans (>= 75GB)
+    const premium = (!soon && p.volume>=75) ? 'premium' : '';
+    // Best-seller ribbon for the most popular available plan (30GB V2RayNG)
+    const best = (!soon && !outOfStock && p.id==='p4') ? 'best-value' : '';
+    return `<div class="product-card ${disabled} ${premium} ${best}">
+      <div class="product-head">
+        <div class="product-icon">${icon}</div>
+        <div class="product-cat">${catFa}</div>
+      </div>
+      <div class="product-body">
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.desc}</div>
+        <div class="product-meta">
+          <div class="meta-item"><div class="lbl">حجم</div><div class="val neon">${soon?'—':fmtGB(p.volume)}</div></div>
+          <div class="meta-item"><div class="lbl">مدت اعتبار</div><div class="val">${soon?'—':toFa(p.duration)+' روز'}</div></div>
+        </div>
+        <div class="product-price">
+          <div><span class="price-num">${soon?'—':fmtToman(p.price)}</span></div>
+          ${stockPill}
+        </div>
+        <button class="btn btn-primary" style="width:100%" ${soon||!p.active||outOfStock?'disabled':''}
+          onclick="${soon||!p.active||outOfStock?'':`openBuyModal('${p.id}')`}">
+          ${soon?'به‌زودی':(!p.active?'غیرفعال':(outOfStock?'ناموجود':'خرید محصول'))}
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+}
+</script>
+<script>
+// ============ BUY ============
+function openBuyModal(pid){
+  const u=requireUser(); if(!u) return;
+  const p=db.products.find(x=>x.id===pid);
+  if(!p){ toast('محصول یافت نشد','err'); return; }
+  const inv=Number(p.stock)||0;
+  if(inv===0){ toast('موجودی این کانفیگ تمام شده','err'); return; }
+  const canAfford = u.wallet>=p.price;
+  openModal(`
+    <div class="modal-head"><h3>خرید محصول</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="detail-list">
+        <div class="row"><span>محصول</span><span>${p.name}</span></div>
+        <div class="row"><span>دسته</span><span>${p.cat==='v2rayng'?'V2RayNG':p.cat==='v2box'?'V2Box':'OpenVPN'}</span></div>
+        <div class="row"><span>حجم</span><span class="neon" style="color:var(--neon)">${fmtGB(p.volume)}</span></div>
+        <div class="row"><span>مدت اعتبار</span><span>${toFa(p.duration)} روز</span></div>
+        <div class="row"><span>موجودی انبار</span><span>${toFa(inv)} عدد</span></div>
+        <div class="row"><span>مبلغ خرید</span><span style="color:var(--neon);font-weight:700">${fmtToman(p.price)}</span></div>
+        <div class="row"><span>موجودی کیف پول شما</span><span style="color:${canAfford?'var(--ok)':'var(--danger)'}">${fmtToman(u.wallet)}</span></div>
+        <div class="row"><span>موجودی پس از خرید</span><span style="font-weight:700">${fmtToman(u.wallet-p.price)}</span></div>
+      </div>
+      ${!canAfford?`<div class="notice mt">موجودی کیف پول شما کافی نیست. ابتدا کیف پول خود را شارژ کنید.</div>`:''}
+    </div>
+    <div class="modal-foot">
+      ${canAfford
+        ? `<button class="btn btn-primary" onclick="confirmBuy('${pid}')">تایید و پرداخت</button>`
+        : `<button class="btn btn-primary" onclick="closeModal();nav('dashboard');dashTab='wallet';renderDashboard();">شارژ کیف پول</button>`}
+      <button class="btn btn-ghost" onclick="closeModal()">انصراف</button>
+    </div>
+  `);
+}
+
+function confirmBuy(pid){
+  const u=currentUser(); if(!u){ toast('نشست منقضی شده','err'); nav('login'); return; }
+  const p=db.products.find(x=>x.id===pid);
+  if(!p) return;
+  if(u.wallet<p.price){ toast('موجودی کافی نیست','err'); return; }
+  if((Number(p.stock)||0)<=0){ toast('موجودی این کانفیگ تمام شد','err'); return; }
+  if(!p.config || p.config.indexOf('PLACEHOLDER')>=0){
+    toast('کانفیگ این محصول هنوز توسط مدیر تنظیم نشده','err'); return;
+  }
+  // debit wallet + decrement stock atomically
+  u.wallet -= p.price;
+  p.stock  = (Number(p.stock)||0) - 1;
+  // snapshot the config string at purchase time so the buyer keeps it even
+  // if the admin later changes the product's config.
+  const now=Date.now();
+  const expiresAt = now + (p.duration||0)*86400000;
+  const order={
+    id:uid('o'), userId:u.id, productId:p.id, productName:p.name,
+    configId:null, configSnapshot:p.config, price:p.price,
+    volume:p.volume, duration:p.duration,
+    createdAt:now, status:'active', expiresAt,
+    usedVolume:0, totalVolume:p.volume
+  };
+  db.orders.unshift(order);
+  DB.save(db);
+  addLog(`خرید کانفیگ ${p.name} توسط ${u.username} به مبلغ ${fmtToman(p.price)}`, u.username);
+  closeModal();
+  toast('خرید موفق بود! کانفیگ به حساب شما اضافه شد','ok');
+  syncTopbar();
+  nav('dashboard');
+  dashTab='configs';
+  renderDashboard();
+}
+</script>
+<script>
+// ============ DASHBOARD ============
+function renderDashboard(){
+  const u=currentUser();
+  if(!u){ nav('login'); return; }
+  const c = renderDashboardContent(u);
+  document.getElementById('dashContainer').innerHTML = c;
+  // re-render active tab
+  renderDashTab();
+}
+
+function renderDashboardContent(u){
+  return `
+  <div class="dash-grid">
+    <aside class="dash-side">
+      <div class="dash-user">
+        <div class="avatar" style="width:44px;height:44px;font-size:16px">${(u.name||'U').charAt(0)}</div>
+        <div class="info"><b>${u.name}</b><span>@${u.username}</span></div>
+      </div>
+      <div class="dash-menu" id="dashMenu">
+        <button data-t="overview" onclick="setDashTab('overview')"><span class="ico">📊</span> نمای کلی</button>
+        <button data-t="wallet"   onclick="setDashTab('wallet')"><span class="ico">💰</span> کیف پول</button>
+        <button data-t="configs"  onclick="setDashTab('configs')"><span class="ico">🔐</span> کانفیگ‌های من</button>
+        <button data-t="orders"   onclick="setDashTab('orders')"><span class="ico">🧾</span> تاریخچه خرید</button>
+        <button data-t="tickets"  onclick="setDashTab('tickets')"><span class="ico">📨</span> تیکت پشتیبانی</button>
+        <button data-t="profile"  onclick="setDashTab('profile')"><span class="ico">👤</span> پروفایل</button>
+        <button class="logout" onclick="logout()"><span class="ico">↩</span> خروج از حساب</button>
+      </div>
+    </aside>
+    <main class="dash-main">
+      <div class="tab-pane" id="dashPane"></div>
+    </main>
+  </div>`;
+}
+
+function setDashTab(t){ dashTab=t; renderDashTab(); }
+function renderDashTab(){
+  // highlight menu
+  document.querySelectorAll('#dashMenu button[data-t]').forEach(b=>{
+    b.classList.toggle('active', b.dataset.t===dashTab);
+  });
+  const u=currentUser(); if(!u) return;
+  const pane=document.getElementById('dashPane');
+  pane.classList.add('active');
+  if(dashTab==='overview') pane.innerHTML=dashOverview(u);
+  if(dashTab==='wallet')    pane.innerHTML=dashWallet(u);
+  if(dashTab==='configs')   pane.innerHTML=dashConfigs(u);
+  if(dashTab==='orders')    pane.innerHTML=dashOrders(u);
+  if(dashTab==='tickets')   pane.innerHTML=dashTickets(u);
+  if(dashTab==='profile')   pane.innerHTML=dashProfile(u);
+  syncTopbar();
+}
+
+function dashOverview(u){
+  const myConfs = userConfigs(u);
+  const activeConfs = myConfs.filter(c=>c.status==='sold');
+  const myOrders = db.orders.filter(o=>o.userId===u.id);
+  const myTickets = db.tickets.filter(t=>t.userId===u.id);
+  const openTickets = myTickets.filter(t=>t.status!=='closed');
+  return `
+    <div class="section-head"><div><h2>نمای کلی</h2><div class="sub">خلاصه حساب کاربری شما</div></div></div>
+    <div class="dash-cards">
+      <div class="stat-card"><div class="lbl">موجودی کیف پول</div><div class="val neon">${fmtToman(u.wallet)}</div><div class="sub"><a onclick="setDashTab('wallet')" style="color:var(--neon)">شارژ ←</a></div></div>
+      <div class="stat-card"><div class="lbl">کانفیگ‌های فعال</div><div class="val">${toFa(activeConfs.length)}</div><div class="sub">از ${toFa(myConfs.length)} کانفیگ</div></div>
+      <div class="stat-card"><div class="lbl">تعداد خرید</div><div class="val">${toFa(myOrders.length)}</div><div class="sub">سفارش ثبت‌شده</div></div>
+      <div class="stat-card"><div class="lbl">تیکت‌های باز</div><div class="val">${toFa(openTickets.length)}</div><div class="sub"><a onclick="setDashTab('tickets')" style="color:var(--neon)">جدید ←</a></div></div>
+    </div>
+    <div class="section-head"><div><h2>کانفیگ‌های فعال</h2><div class="sub">در حال استفاده</div></div></div>
+    ${activeConfs.length? activeConfs.map(c=>configCard(c,u)).join('') :
+      `<div class="empty"><div class="ico">🔐</div>هنوز کانفیگی خریداری نکرده‌اید. <a onclick="nav('products')" style="color:var(--neon)">مشاهده محصولات ←</a></div>`}
+  `;
+}
+
+function configCard(c,u){
+  const p=db.products.find(x=>x.id===c.productId)||{duration:0,volume:0};
+  const expired = c.expiresAt<=Date.now();
+  const left = daysLeft(c.expiresAt);
+  const dur = p.duration||c.duration||30;
+  const leftPct = expired?0:Math.max(0,Math.min(100,(left/dur)*100));
+  const volLeft = c.totalVolume - c.usedVolume;
+  const volPct = c.totalVolume>0?Math.max(0,Math.min(100,(volLeft/c.totalVolume)*100)):0;
+  return `<div class="config-card">
+    <div class="top">
+      <div>
+        <div class="name">${p.name||'کانفیگ'}</div>
+        <div class="meta">سفارش #${toFa(c.orderId||'—').slice(-6)} · خرید ${fmtDate(c.soldAt)}</div>
+      </div>
+      ${expired?`<span class="status st-expired">منقضی</span>`:`<span class="status st-active">فعال</span>`}
+    </div>
+    <div class="flex gap-sm mt" style="justify-content:space-between">
+      <div class="meta-item" style="flex:1"><div class="lbl">حجم باقی‌مانده</div><div class="val neon">${fmtGB(volLeft)}</div>
+        <div class="progress"><div style="width:${volPct}%"></div></div>
+      </div>
+      <div class="meta-item" style="flex:1"><div class="lbl">زمان باقی‌مانده</div><div class="val">${toFa(left)} روز</div>
+        <div class="progress"><div style="width:${leftPct}%"></div></div>
+      </div>
+    </div>
+    <div class="config-box mono">${c.config}</div>
+    <div class="config-actions">
+      <button class="btn btn-ghost btn-sm" onclick="copyConfig('${c.id}')">📋 کپی کانفیگ</button>
+      ${expired?`<button class="btn btn-primary btn-sm" onclick="openRenewModal('${c.id}')">🔄 تمدید</button>`:
+        `<button class="btn btn-ghost btn-sm" onclick="openRenewModal('${c.id}')">🔄 تمدید زودهنگام</button>`}
+    </div>
+  </div>`;
+}
+
+function copyConfig(cid){
+  // find the config string from the order snapshot (new model) or fall back to old configs
+  const order=db.orders.find(o=>o.id===cid);
+  const cfg = order ? (order.configSnapshot||'') : ((db.configs||[]).find(x=>x.id===cid)||{}).config;
+  if(!cfg){ toast('کانفیگ یافت نشد','err'); return; }
+  navigator.clipboard?.writeText(cfg).then(()=>toast('کانفیگ کپی شد','ok')).catch(()=>{
+    // fallback
+    const ta=document.createElement('textarea'); ta.value=cfg; document.body.appendChild(ta);
+    ta.select(); document.execCommand('copy'); ta.remove(); toast('کانفیگ کپی شد','ok');
+  });
+}
+
+// ---- wallet ----
+function dashWallet(u){
+  const pend = db.charges.filter(c=>c.userId===u.id && c.status==='pending');
+  const all = db.charges.filter(c=>c.userId===u.id).slice().sort((a,b)=>b.ts-a.ts);
+  return `
+    <div class="section-head"><div><h2>کیف پول</h2><div class="sub">شارژ و تاریخچه تراکنش‌ها</div></div></div>
+    <div class="stat-card mb-lg" style="background:linear-gradient(135deg,rgba(0,212,255,.1),rgba(124,91,255,.1))">
+      <div class="lbl">موجودی فعلی</div>
+      <div class="val neon" style="font-size:32px">${fmtToman(u.wallet)}</div>
+      <div class="sub">افزایش موجودی فقط پس از تایید مدیر انجام می‌شود</div>
+    </div>
+    ${pend.length?`<div class="notice">${toFa(pend.length)} درخواست شارژ در انتظار تایید است</div>`:''}
+    <div class="hint-box">
+      <b>راهنمای شارژ:</b> ${db.settings.paymentDesc}<br>
+      <span style="color:var(--text-2)">شماره کارت: <span dir="ltr" style="color:var(--neon)">${db.settings.paymentCard}</span></span><br>
+      <span style="color:var(--text-2)">به نام: <span style="color:var(--neon)">${db.settings.paymentName}</span></span>
+    </div>
+    <button class="btn btn-primary mb" onclick="openChargeModal()">➕ ثبت درخواست شارژ</button>
+
+    <div class="section-head"><div><h3 style="font-size:16px">تاریخچه درخواست‌ها</h3></div></div>
+    ${all.length?
+      `<div class="table-wrap"><table>
+      <thead><tr><th>تاریخ</th><th>مبلغ</th><th>رسید</th><th>وضعیت</th><th>توضیح</th></tr></thead>
+      <tbody>${all.map(c=>`
+        <tr>
+          <td>${fmtDateTime(c.ts)}</td>
+          <td style="color:var(--neon);font-weight:700">${fmtToman(c.amount)}</td>
+          <td>${c.receipt?`<button class="btn btn-ghost btn-sm" onclick="viewReceipt('${c.id}')">🖼️ مشاهده</button>`:'—'}</td>
+          <td>${chargeStatusPill(c.status)}</td>
+          <td style="color:var(--text-3);font-size:12px">${c.note||'—'}</td>
+        </tr>`).join('')}</tbody></table></div>`
+      : `<div class="empty"><div class="ico">💰</div>هنوز درخواست شارژی ثبت نکرده‌اید</div>`}
+  `;
+}
+function chargeStatusPill(s){
+  if(s==='pending') return '<span class="status st-pending">در انتظار</span>';
+  if(s==='approved') return '<span class="status st-approved">تاییدشده</span>';
+  if(s==='rejected') return '<span class="status st-rejected">ردشده</span>';
+  return s;
+}
+
+function openChargeModal(){
+  const u=currentUser(); if(!u) return;
+  openModal(`
+    <div class="modal-head"><h3>درخواست شارژ کیف پول</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="hint-box">
+        مبلغ را به کارت زیر واریز کنید و تصویر رسید را آپلود کنید:<br>
+        <span style="color:var(--neon)" dir="ltr">${db.settings.paymentCard}</span> به نام <b>${db.settings.paymentName}</b>
+      </div>
+      <div class="field"><label>مبلغ شارژ (تومان)</label><input id="chAmount" type="text" inputmode="numeric" placeholder="مثلاً ۱۰۰۰۰۰"></div>
+      <div class="field"><label>تصویر رسید پرداخت</label>
+        <input id="chFile" type="file" accept="image/*">
+        <div class="hint">فقط تصویر رسید را انتخاب کنید. پیش‌نمایش در پنل مدیر نمایش داده می‌شود.</div>
+      </div>
+      <div class="field"><label>توضیح (اختیاری)</label><input id="chNote" type="text" placeholder="مثلاً ساعت پرداخت، شناسه پیگیری"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-primary" onclick="submitCharge()">ثبت درخواست</button>
+      <button class="btn btn-ghost" onclick="closeModal()">انصراف</button>
+    </div>
+  `);
+}
+
+function submitCharge(){
+  const u=currentUser(); if(!u) return;
+  const amt=parseInt(toEn(document.getElementById('chAmount').value.replace(/[, ]/g,'')));
+  if(!amt||amt<10000){ toast('مبلغ باید حداقل ۱۰٬۰۰۰ تومان باشد','err'); return; }
+  const file=document.getElementById('chFile').files[0];
+  const note=document.getElementById('chNote').value.trim();
+  const charge={id:uid('ch'), userId:u.id, amount:amt, ts:Date.now(), status:'pending', note, receipt:null, receiptName:''};
+  if(file){
+    if(file.size>3*1024*1024){ toast('حجم تصویر باید کمتر از ۳ مگابایت باشد','err'); return; }
+    const reader=new FileReader();
+    reader.onload=()=>{
+      charge.receipt=reader.result;
+      charge.receiptName=file.name;
+      db.charges.unshift(charge); DB.save(db);
+      addLog(`درخواست شارژ ${fmtToman(amt)} توسط ${u.username}`, u.username);
+      closeModal(); toast('درخواست شارژ ثبت شد و در انتظار تایید است','ok'); renderDashTab();
+    };
+    reader.readAsDataURL(file);
+  }else{
+    db.charges.unshift(charge); DB.save(db);
+    addLog(`درخواست شارژ ${fmtToman(amt)} (بدون رسید) توسط ${u.username}`, u.username);
+    closeModal(); toast('درخواست ثبت شد (بدون رسید)','warn'); renderDashTab();
+  }
+}
+
+function viewReceipt(cid){
+  const c=db.charges.find(x=>x.id===cid);
+  if(!c||!c.receipt){ toast('رسیدی وجود ندارد','warn'); return; }
+  openModal(`
+    <div class="modal-head"><h3>رسید پرداخت</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body center">
+      <img src="${c.receipt}" style="max-width:100%;border-radius:10px;border:1px solid var(--border-2)">
+      <div class="muted mt" style="font-size:12px">فایل: ${c.receiptName||'—'}</div>
+    </div>
+  `);
+}
+
+// ---- configs ----
+function dashConfigs(u){
+  const mine=userConfigs(u);
+  return `
+    <div class="section-head"><div><h2>کانفیگ‌های من</h2><div class="sub">محصولات خریداری‌شده</div></div></div>
+    ${mine.length? mine.map(c=>configCard(c,u)).join('') :
+      `<div class="empty"><div class="ico">🔐</div>کانفیگی ندارید. <a onclick="nav('products')" style="color:var(--neon)">خرید کانفیگ ←</a></div>`}
+  `;
+}
+
+function openRenewModal(cid){
+  const u=currentUser(); if(!u) return;
+  const all=userConfigs(u);
+  const c=all.find(x=>x.id===cid); if(!c) return;
+  const p=db.products.find(x=>x.id===c.productId); if(!p){ toast('محصول این کانفیگ دیگر موجود نیست','err'); return; }
+  if(u.wallet<p.price){ toast('موجودی کیف پول کافی نیست','err'); setDashTab('wallet'); return; }
+  openModal(`
+    <div class="modal-head"><h3>تمدید کانفیگ</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="detail-list">
+        <div class="row"><span>کانفیگ</span><span>${p.name}</span></div>
+        <div class="row"><span>تمدید به مدت</span><span>${toFa(p.duration)} روز اضافه</span></div>
+        <div class="row"><span>حجم اضافه</span><span class="neon" style="color:var(--neon)">${fmtGB(p.volume)}</span></div>
+        <div class="row"><span>هزینه تمدید</span><span style="color:var(--neon);font-weight:700">${fmtToman(p.price)}</span></div>
+        <div class="row"><span>موجودی کیف پول</span><span>${fmtToman(u.wallet)}</span></div>
+      </div>
+      <div class="notice mt">تمدید همان کانفیگ را با حفظ UUID تمدید می‌کند (در دمو فقط زمان و حجم افزوده می‌شود).</div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-primary" onclick="confirmRenew('${cid}')">تایید تمدید</button>
+      <button class="btn btn-ghost" onclick="closeModal()">انصراف</button>
+    </div>
+  `);
+}
+
+function confirmRenew(cid){
+  const u=currentUser(); if(!u) return;
+  // find the order to renew
+  const order=db.orders.find(o=>o.id===cid && o.userId===u.id);
+  if(!order){ toast('کانفیگ یافت نشد','err'); return; }
+  const p=db.products.find(x=>x.id===order.productId);
+  if(!p){ toast('محصول این کانفیگ دیگر موجود نیست','err'); return; }
+  if(u.wallet<p.price){ toast('موجودی کافی نیست','err'); return; }
+  u.wallet-=p.price;
+  // extend expiry on the original order (if expired, start from now)
+  const base = (order.expiresAt && order.expiresAt>Date.now())?order.expiresAt:Date.now();
+  order.expiresAt = base + (p.duration||0)*86400000;
+  order.totalVolume = (order.totalVolume||order.volume||0) + (p.volume||0);
+  order.status='active';
+  // record a renewal order
+  const renewOrder={id:uid('o'),userId:u.id,productId:p.id,productName:p.name+' (تمدید)',configId:order.id,configSnapshot:order.configSnapshot,price:p.price,volume:p.volume,duration:p.duration,createdAt:Date.now(),status:'active',expiresAt:order.expiresAt,renew:true};
+  db.orders.unshift(renewOrder);
+  DB.save(db);
+  addLog(`تمدید کانفیگ ${p.name} توسط ${u.username}`, u.username);
+  closeModal(); toast('کانفیگ تمدید شد','ok'); syncTopbar(); renderDashTab();
+}
+
+// ---- orders ----
+function dashOrders(u){
+  const mine=db.orders.filter(o=>o.userId===u.id).sort((a,b)=>b.createdAt-a.createdAt);
+  return `
+    <div class="section-head"><div><h2>تاریخچه خرید</h2><div class="sub">سفارش‌های شما</div></div></div>
+    ${mine.length?
+      `<div class="table-wrap"><table>
+      <thead><tr><th>شماره سفارش</th><th>محصول</th><th>مبلغ</th><th>تاریخ</th><th>وضعیت</th></tr></thead>
+      <tbody>${mine.map(o=>`
+        <tr>
+          <td class="mono">#${o.id.slice(-6)}</td>
+          <td>${o.productName}</td>
+          <td style="color:var(--neon);font-weight:700">${fmtToman(o.price)}</td>
+          <td>${fmtDate(o.createdAt)}</td>
+          <td>${o.expiresAt>Date.now()? '<span class="status st-active">فعال</span>' : '<span class="status st-expired">منقضی</span>'}</td>
+        </tr>`).join('')}</tbody></table></div>`
+      : `<div class="empty"><div class="ico">🧾</div>سفارشی ثبت نشده است</div>`}
+  `;
+}
+
+// ---- tickets ----
+function dashTickets(u){
+  const mine=db.tickets.filter(t=>t.userId===u.id).sort((a,b)=>b.updatedAt-a.updatedAt);
+  return `
+    <div class="section-head"><div>
+      <h2>تیکت پشتیبانی</h2><div class="sub">سوالات و درخواست‌های پشتیبانی</div>
+    </div>
+      <button class="btn btn-primary" onclick="openTicketModal()">➕ تیکت جدید</button>
+    </div>
+    ${mine.length? mine.map(t=>ticketCard(t,u)).join('') :
+      `<div class="empty"><div class="ico">📨</div>تیکتی ندارید</div>`}
+  `;
+}
+
+function ticketCard(t,u){
+  const replies = (t.replies||[]).map(r=>`
+    <div class="ticket-msg ${r.from==='admin'?'ticket-reply':''}">
+      <div style="font-size:11px;color:var(--text-3);margin-bottom:4px">${r.from==='admin'?'پاسخ پشتیبانی':'شما'} · ${fmtDateTime(r.ts)}</div>
+      ${escapeHtml(r.text)}
+    </div>`).join('');
+  return `<div class="ticket-card">
+    <div class="ticket-head">
+      <div><div class="ticket-subject">${escapeHtml(t.subject)} <span class="tag">#${t.id.slice(-4)}</span></div>
+      <div>${ticketStatusPill(t.status)}</div>
+    </div>
+    <div class="ticket-msg">
+      <div style="font-size:11px;color:var(--text-3);margin-bottom:4px">شما · ${fmtDateTime(t.createdAt)}</div>
+      ${escapeHtml(t.message)}
+    </div>
+    ${replies}
+    ${t.status!=='closed'?`
+      <div class="flex mt">
+        <input id="rep_${t.id}" type="text" placeholder="پاسخ شما..." class="" style="flex:1;padding:9px 12px;border-radius:9px;background:var(--bg-1);border:1px solid var(--border-2);color:var(--text);font-size:13px">
+        <button class="btn btn-primary btn-sm" onclick="replyTicket('${t.id}')">ارسال</button>
+        <button class="btn btn-ghost btn-sm" onclick="closeTicket('${t.id}')">بستن تیکت</button>
+      </div>`:`<div class="muted mt" style="font-size:12px">این تیکت بسته شده است.</div>`}
+  </div>`;
+}
+function ticketStatusPill(s){
+  if(s==='open') return '<span class="status st-open">باز</span>';
+  if(s==='answered') return '<span class="status st-answered">پاسخ داده شد</span>';
+  if(s==='closed') return '<span class="status st-closed">بسته شده</span>';
+  return s;
+}
+
+function openTicketModal(){
+  const u=currentUser(); if(!u) return;
+  openModal(`
+    <div class="modal-head"><h3>تیکت پشتیبانی جدید</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>موضوع</label><input id="tkSub" type="text" placeholder="مثلاً مشکل اتصال کانفیگ"></div>
+      <div class="field"><label>پیام</label><textarea id="tkMsg" placeholder="مشکل خود را به طور کامل توضیح دهید"></textarea></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-primary" onclick="submitTicket()">ارسال تیکت</button>
+      <button class="btn btn-ghost" onclick="closeModal()">انصراف</button>
+    </div>
+  `);
+}
+function submitTicket(){
+  const u=currentUser(); if(!u) return;
+  const s=document.getElementById('tkSub').value.trim();
+  const m=document.getElementById('tkMsg').value.trim();
+  if(!s||!m){ toast('موضوع و پیام را پر کنید','err'); return; }
+  const t={id:uid('t'),userId:u.id,userName:u.username,subject:s,message:m,createdAt:Date.now(),updatedAt:Date.now(),status:'open',replies:[]};
+  db.tickets.unshift(t); DB.save(db);
+  addLog(`تیکت جدید: ${s} (${u.username})`, u.username);
+  closeModal(); toast('تیکت ارسال شد','ok'); renderDashTab();
+}
+function replyTicket(tid){
+  const u=currentUser(); if(!u) return;
+  const t=db.tickets.find(x=>x.id===tid); if(!t) return;
+  const inp=document.getElementById('rep_'+tid);
+  const txt=inp.value.trim(); if(!txt) return;
+  t.replies=t.replies||[]; t.replies.push({from:'user',text:txt,ts:Date.now()});
+  t.updatedAt=Date.now(); t.status='open'; // user replied -> reopen
+  DB.save(db);
+  addLog('پاسخ به تیکت '+t.subject,u.username);
+  toast('پاسخ ارسال شد','ok'); renderDashTab();
+}
+function closeTicket(tid){
+  const t=db.tickets.find(x=>x.id===tid); if(!t) return;
+  t.status='closed'; t.updatedAt=Date.now(); DB.save(db);
+  addLog('تیکت بسته شد: '+t.subject, currentUser().username);
+  toast('تیکت بسته شد','ok'); renderDashTab();
+}
+
+// ---- profile ----
+function dashProfile(u){
+  return `
+    <div class="section-head"><div><h2>پروفایل</h2><div class="sub">اطلاعات حساب کاربری</div></div></div>
+    <div class="panel" style="max-width:560px">
+      <div class="detail-list">
+        <div class="row"><span>نام کامل</span><span>${u.name}</span></div>
+        <div class="row"><span>نام کاربری</span><span>@${u.username}</span></div>
+        <div class="row"><span>ایمیل</span><span>${u.email}</span></div>
+        <div class="row"><span>موبایل</span><span>${toFa(u.phone)}</span></div>
+        <div class="row"><span>تاریخ عضویت</span><span>${fmtDate(u.createdAt)}</span></div>
+        <div class="row"><span>موجودی کیف پول</span><span style="color:var(--neon);font-weight:700">${fmtToman(u.wallet)}</span></div>
+      </div>
+      <div class="divider"></div>
+      <button class="btn btn-ghost" onclick="openEditProfile()">✏️ ویرایش اطلاعات</button>
+      <button class="btn btn-ghost" onclick="openChangePass()">🔑 تغییر رمز عبور</button>
+    </div>
+  `;
+}
+function openEditProfile(){
+  const u=currentUser(); if(!u) return;
+  openModal(`
+    <div class="modal-head"><h3>ویرایش پروفایل</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>نام</label><input id="epName" type="text" value="${u.name}"></div>
+      <div class="field"><label>موبایل</label><input id="epPhone" type="tel" value="${toFa(u.phone)}"></div>
+      <div class="field"><label>ایمیل</label><input id="epEmail" type="email" value="${u.email}"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-primary" onclick="saveProfile()">ذخیره</button>
+      <button class="btn btn-ghost" onclick="closeModal()">انصراف</button>
+    </div>
+  `);
+}
+function saveProfile(){
+  const u=currentUser(); if(!u) return;
+  u.name=document.getElementById('epName').value.trim();
+  const ph=toEn(document.getElementById('epPhone').value.trim());
+  if(!/^09\d{9}$/.test(ph)){ toast('موبایل نامعتبر','err'); return; }
+  u.phone=ph;
+  u.email=document.getElementById('epEmail').value.trim();
+  DB.save(db); addLog('بروزرسانی پروفایل',u.username);
+  closeModal(); toast('پروفایل ذخیره شد','ok'); renderDashTab(); syncTopbar();
+}
+function openChangePass(){
+  const u=currentUser(); if(!u) return;
+  openModal(`
+    <div class="modal-head"><h3>تغییر رمز عبور</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>رمز فعلی</label><input id="cpOld" type="password"></div>
+      <div class="field"><label>رمز جدید</label><input id="cpNew" type="password" minlength="6"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-primary" onclick="savePass()">تغییر رمز</button>
+      <button class="btn btn-ghost" onclick="closeModal()">انصراف</button>
+    </div>
+  `);
+}
+function savePass(){
+  const u=currentUser(); if(!u) return;
+  const o=document.getElementById('cpOld').value, n=document.getElementById('cpNew').value;
+  if(u.password!==o){ toast('رمز فعلی اشتباه است','err'); return; }
+  if(n.length<6){ toast('رمز جدید کوتاه است','err'); return; }
+  u.password=n; DB.save(db); addLog('تغییر رمز عبور',u.username);
+  closeModal(); toast('رمز تغییر کرد','ok');
+}
+
+// ---------- util ----------
+function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+</script>
+<script>
+// ============ ADMIN PANEL ============
+function renderAdmin(){
+  if(!(session&&session.type==='admin')){ nav('adminLogin'); return; }
+  document.getElementById('adminContainer').innerHTML = `
+    <div class="admin-grid">
+      <aside class="admin-side">
+        <div class="dash-user">
+          <div class="avatar" style="width:44px;height:44px;font-size:16px;background:linear-gradient(135deg,var(--danger),var(--accent-2))">A</div>
+          <div class="info"><b>مدیر سیستم</b><span>@admin</span></div>
+        </div>
+        <h3>مدیریت</h3>
+        <div class="admin-menu" id="adminMenu">
+          <button data-t="dashboard" onclick="setAdminTab('dashboard')"><span class="ico">📊</span> نمای کلی</button>
+          <button data-t="products"  onclick="setAdminTab('products')"><span class="ico">📦</span> محصولات</button>
+          <button data-t="configs"   onclick="setAdminTab('configs')"><span class="ico">🔐</span> موجودی کانفیگ</button>
+          <button data-t="charges"   onclick="setAdminTab('charges')"><span class="ico">💰</span> درخواست‌های شارژ ${chargeBadge()}</button>
+          <button data-t="orders"    onclick="setAdminTab('orders')"><span class="ico">🧾</span> سفارش‌ها</button>
+          <button data-t="users"     onclick="setAdminTab('users')"><span class="ico">👥</span> کاربران</button>
+          <button data-t="tickets"  onclick="setAdminTab('tickets')"><span class="ico">📨</span> تیکت‌ها ${ticketBadge()}</button>
+          <button data-t="reports"  onclick="setAdminTab('reports')"><span class="ico">📈</span> گزارش فروش</button>
+          <button data-t="logs"     onclick="setAdminTab('logs')"><span class="ico">📜</span> لاگ‌ها</button>
+          <button data-t="settings" onclick="setAdminTab('settings')"><span class="ico">⚙️</span> تنظیمات</button>
+        </div>
+        <div class="divider"></div>
+        <button class="btn btn-danger btn-sm" style="width:100%" onclick="logout()">خروج از پنل</button>
+      </aside>
+      <main>
+        <div id="adminPane"></div>
+      </main>
+    </div>`;
+  renderAdminTab();
+}
+function chargeBadge(){
+  const n=db.charges.filter(c=>c.status==='pending').length;
+  return n? `<span class="admin-badge">${toFa(n)}</span>`:'';
+}
+function ticketBadge(){
+  const n=db.tickets.filter(t=>t.status==='open'||t.status==='answered').filter(t=>t.replies&&t.replies.some(r=>r.from==='admin')?false:true).length;
+  const open = db.tickets.filter(t=>t.status==='open').length;
+  return open? `<span class="admin-badge">${toFa(open)}</span>`:'';
+}
+function setAdminTab(t){ adminTab=t; renderAdminTab(); }
+function renderAdminTab(){
+  document.querySelectorAll('#adminMenu button[data-t]').forEach(b=>b.classList.toggle('active',b.dataset.t===adminTab));
+  const pane=document.getElementById('adminPane');
+  if(adminTab==='dashboard') pane.innerHTML=adminDashboard();
+  if(adminTab==='products')  pane.innerHTML=adminProducts();
+  if(adminTab==='configs')   pane.innerHTML=adminConfigs();
+  if(adminTab==='charges')   pane.innerHTML=adminCharges();
+  if(adminTab==='orders')    pane.innerHTML=adminOrders();
+  if(adminTab==='users')     pane.innerHTML=adminUsers();
+  if(adminTab==='tickets')   pane.innerHTML=adminTickets();
+  if(adminTab==='reports')   pane.innerHTML=adminReports();
+  if(adminTab==='logs')      pane.innerHTML=adminLogs();
+  if(adminTab==='settings')  pane.innerHTML=adminSettings();
+}
+
+function adminDashboard(){
+  const totalSales = db.orders.reduce((s,o)=>s+o.price,0);
+  const activeConfigs = totalActiveConfigs();
+  const pendingCharges = db.charges.filter(c=>c.status==='pending').length;
+  const openTickets = db.tickets.filter(t=>t.status==='open').length;
+  const availStock = totalAvailableStock();
+  return `
+    <div class="section-head"><div><h2>نمای کلی مدیریت</h2><div class="sub">وضعیت کلی فروشگاه</div></div></div>
+    <div class="dash-cards">
+      <div class="stat-card"><div class="lbl">فروش کل</div><div class="val neon">${fmtToman(totalSales)}</div><div class="sub">${toFa(db.orders.length)} سفارش</div></div>
+      <div class="stat-card"><div class="lbl">کاربران</div><div class="val">${toFa(db.users.length)}</div><div class="sub">${toFa(db.users.filter(u=>u.active).length)} فعال</div></div>
+      <div class="stat-card"><div class="lbl">کانفیگ‌های فعال</div><div class="val">${toFa(activeConfigs)}</div><div class="sub">در دست مصرف کاربران</div></div>
+      <div class="stat-card"><div class="lbl">موجودی کانفیگ</div><div class="val">${toFa(availStock)}</div><div class="sub">آماده فروش</div></div>
+      <div class="stat-card"><div class="lbl">درخواست شارژ</div><div class="val" style="color:${pendingCharges?'var(--warn)':'var(--text)'}">${toFa(pendingCharges)}</div><div class="sub">در انتظار تایید</div></div>
+      <div class="stat-card"><div class="lbl">تیکت‌های باز</div><div class="val" style="color:${openTickets?'var(--neon)':'var(--text)'}">${toFa(openTickets)}</div><div class="sub">نیازمند پاسخ</div></div>
+    </div>
+    <div class="section-head"><div><h2>آخرین رویدادها</h2></div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>زمان</th><th>کاربر</th><th>رویداد</th></tr></thead>
+      <tbody>${db.logs.slice(0,8).map(l=>`<tr><td style="font-size:12px">${fmtDateTime(l.ts)}</td><td>${l.actor}</td><td>${l.action}</td></tr>`).join('')}</tbody>
+    </table></div>
+  `;
+}
+
+// ---- products ----
+function adminProducts(){
+  return `
+    <div class="section-head"><div><h2>مدیریت محصولات</h2><div class="sub">افزودن، ویرایش، فعال/غیرفعال · افزودن محصول و کانفیگ به‌صورت یکجا</div></div>
+      <button class="btn btn-primary" onclick="openProductModalFull()">➕ محصول + کانفیگ (یکجا)</button>
+    </div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>نام</th><th>دسته</th><th>حجم</th><th>مدت</th><th>قیمت</th><th>موجودی</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+      <tbody>${db.products.map(p=>{
+        const inv=p.soon?0:(Number(p.stock)||0);
+        const catFa=p.cat==='v2rayng'?'V2RayNG':p.cat==='v2box'?'V2Box':'OpenVPN';
+        const hasCfg = p.config && p.config.indexOf('PLACEHOLDER')<0 && p.config.length>10;
+        return `<tr>
+          <td>${p.name}</td><td><span class="tag">${catFa}</span></td>
+          <td>${p.soon?'—':fmtGB(p.volume)}</td><td>${p.soon?'—':toFa(p.duration)+' روز'}</td>
+          <td style="color:var(--neon)">${p.soon?'—':fmtToman(p.price)}</td>
+          <td>${p.soon?'—':(inv>0?toFa(inv):'<span style="color:var(--danger)">۰</span>')}</td>
+          <td>${p.soon?'<span class="status st-pending">به‌زودی</span>' : (p.active?'<span class="status st-active">فعال</span>':'<span class="status st-closed">غیرفعال</span>')}</td>
+          <td>
+            <button class="btn btn-ghost btn-sm" onclick="openProductModalFull('${p.id}')" title="ویرایش محصول و کانفیگ">✏️</button>
+            <button class="btn btn-ghost btn-sm" onclick="toggleProduct('${p.id}')">${p.active?'⏸️':'▶️'}</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteProduct('${p.id}')">🗑</button>
+          </td>
+        </tr>`;}).join('')}</tbody>
+    </table></div>
+  `;
+}
+function openProductModal(pid){
+  const p=pid?db.products.find(x=>x.id===pid):null;
+  openModal(`
+    <div class="modal-head"><h3>${p?'ویرایش محصول':'محصول جدید'}</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>نام محصول</label><input id="pmName" type="text" value="${p?p.name:''}"></div>
+      <div class="field"><label>توضیح کوتاه</label><input id="pmDesc" type="text" value="${p?p.desc:''}"></div>
+      <div class="field-row">
+        <div class="field"><label>دسته</label><select id="pmCat">
+          <option value="v2rayng" ${p&&p.cat==='v2rayng'?'selected':''}>V2RayNG</option>
+          <option value="v2box" ${p&&p.cat==='v2box'?'selected':''}>V2Box</option>
+          <option value="openvpn" ${p&&p.cat==='openvpn'?'selected':''}>OpenVPN</option>
+        </select></div>
+        <div class="field"><label>حجم (گیگابایت)</label><input id="pmVol" type="number" step="0.1" value="${p?p.volume:30}"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>مدت اعتبار (روز)</label><input id="pmDur" type="number" value="${p?p.duration:30}"></div>
+        <div class="field"><label>قیمت (تومان)</label><input id="pmPrice" type="number" step="1000" value="${p?p.price:50000}"></div>
+      </div>
+      <div class="field"><label><input type="checkbox" id="pmSoon" ${p&&p.soon?'checked':''} style="width:auto;margin-left:8px">این محصول به‌زودی عرضه می‌شود (نمایش در سایت ولی غیرقابل خرید)</label></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-primary" onclick="saveProduct(${p?`'${p.id}'`:'null'})">ذخیره</button>
+      <button class="btn btn-ghost" onclick="closeModal()">انصراف</button>
+    </div>
+  `);
+}
+function saveProduct(pid){
+  const name=document.getElementById('pmName').value.trim();
+  if(!name){ toast('نام را وارد کنید','err'); return; }
+  const data={
+    name, desc:document.getElementById('pmDesc').value.trim(),
+    cat:document.getElementById('pmCat').value,
+    volume:parseFloat(document.getElementById('pmVol').value)||0,
+    duration:parseInt(document.getElementById('pmDur').value)||0,
+    price:parseInt(document.getElementById('pmPrice').value)||0,
+    soon:document.getElementById('pmSoon').checked,
+  };
+  if(pid){
+    const p=db.products.find(x=>x.id===pid); Object.assign(p,data);
+    addLog('ویرایش محصول: '+name,'admin');
+  }else{
+    const np={id:uid('p'),active:true,...data};
+    db.products.push(np);
+    addLog('افزودن محصول: '+name,'admin');
+  }
+  DB.save(db); closeModal(); toast('ذخیره شد','ok'); renderAdminTab();
+}
+
+// ===== Unified "product + configs in one step" modal =====
+function openProductModalFull(pid){
+  const p = pid ? db.products.find(x=>x.id===pid) : null;
+  const currentConfig = p && p.config && p.config.indexOf('PLACEHOLDER')<0 ? p.config : '';
+  openModal(`
+    <div class="modal-head"><h3>${p?'ویرایش محصول و کانفیگ':'محصول جدید + کانفیگ (یکجا)'}</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="field"><label>نام محصول</label><input id="pfName" type="text" value="${p?p.name:''}" placeholder="مثلاً کانفیگ V2RayNG حرفه‌ای"></div>
+      <div class="field"><label>توضیح کوتاه</label><input id="pfDesc" type="text" value="${p?p.desc:''}" placeholder="مثلاً سرعت بالا، پینگ پایین"></div>
+      <div class="field-row">
+        <div class="field"><label>دسته</label><select id="pfCat">
+          <option value="v2rayng" ${p&&p.cat==='v2rayng'?'selected':''}>V2RayNG</option>
+          <option value="v2box" ${p&&p.cat==='v2box'?'selected':''}>V2Box</option>
+          <option value="openvpn" ${p&&p.cat==='openvpn'?'selected':''}>OpenVPN</option>
+        </select></div>
+        <div class="field"><label>حجم (گیگابایت)</label><input id="pfVol" type="number" step="0.1" value="${p?p.volume:30}"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>مدت اعتبار (روز)</label><input id="pfDur" type="number" value="${p?p.duration:30}"></div>
+        <div class="field"><label>قیمت (تومان)</label><input id="pfPrice" type="number" step="1000" value="${p?p.price:50000}"></div>
+      </div>
+      <div class="field"><label><input type="checkbox" id="pfSoon" ${p&&p.soon?'checked':''} style="width:auto;margin-left:8px">این محصول به‌زودی عرضه می‌شود (نمایش در سایت ولی غیرقابل خرید)</label></div>
+      <hr style="border:0;border-top:1px solid var(--border-2);margin:14px 0">
+      <div class="field"><label>کانفیگ واقعی محصول (VLESS/VMess/Trojan)</label>
+        <textarea id="pfConfig" style="min-height:90px" placeholder="vless://uuid@host:port?encryption=none&type=tcp#Name">${currentConfig}</textarea>
+        <div class="hint">این همان لینک کانفیگی است که به خریداران داده می‌شود. یک کانفیگ واحد برای این محصول وارد کنید — همان کانفیگ تا <b>موجودی</b> بار به فروش می‌رسد.</div>
+      </div>
+      <div class="field"><label>موجودی (تعداد دفعات فروش این کانفیگ)</label>
+        <input id="pfStock" type="number" min="0" value="${p?(p.stock!=null?p.stock:2):2}">
+        <div class="hint">هر بار که کاربری این محصول را بخرد، این عدد یکی کم می‌شود. وقتی به صفر رسید، محصول «ناموجود» نمایش داده می‌شود. پیش‌فرض: ۲</div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-primary" onclick="saveProductFull(${p?`'${p.id}'`:'null'})">ذخیره</button>
+      <button class="btn btn-ghost" onclick="closeModal()">انصراف</button>
+    </div>
+  `);
+}
+function saveProductFull(pid){
+  const name=document.getElementById('pfName').value.trim();
+  if(!name){ toast('نام محصول را وارد کنید','err'); return; }
+  const soon=document.getElementById('pfSoon').checked;
+  const config=document.getElementById('pfConfig').value.trim();
+  const stock=parseInt(document.getElementById('pfStock').value)||0;
+  if(!soon && !config){ toast('کانفیگ واقعی محصول را وارد کنید','err'); return; }
+  if(!soon && stock<=0){ toast('موجودی باید بیشتر از صفر باشد (یا محصول را «به‌زودی» کنید)','err'); return; }
+  const data={
+    name, desc:document.getElementById('pfDesc').value.trim(),
+    cat:document.getElementById('pfCat').value,
+    volume:parseFloat(document.getElementById('pfVol').value)||0,
+    duration:parseInt(document.getElementById('pfDur').value)||0,
+    price:parseInt(document.getElementById('pfPrice').value)||0,
+    soon,
+    config: soon ? '' : config,
+    stock: soon ? 0 : stock
+  };
+  if(pid){
+    const p=db.products.find(x=>x.id===pid); Object.assign(p,data);
+    addLog('ویرایش محصول: '+name,'admin');
+  }else{
+    const np={id:uid('p'),active:true,...data};
+    db.products.push(np);
+    addLog('افزودن محصول: '+name,'admin');
+  }
+  DB.save(db); closeModal();
+  toast('محصول ذخیره شد (کانفیگ و موجودی بروز شد)','ok');
+  renderAdminTab();
+}
+function toggleProduct(pid){
+  const p=db.products.find(x=>x.id===pid);
+  p.active=!p.active; DB.save(db);
+  addLog(`${p.active?'فعال‌سازی':'غیرفعال‌سازی'} محصول: ${p.name}`,'admin');
+  toast(p.active?'محصول فعال شد':'محصول غیرفعال شد','ok'); renderAdminTab();
+}
+function deleteProduct(pid){
+  const sold=db.orders.some(o=>o.productId===pid);
+  if(sold){ toast('این محصول دارای سفارش (فروش) است و قابل حذف نیست. به‌جای حذف، آن را غیرفعال کنید.','err'); return; }
+  if(!confirm('حذف این محصول؟')) return;
+  const p=db.products.find(x=>x.id===pid);
+  db.products=db.products.filter(x=>x.id!==pid);
+  DB.save(db); addLog('حذف محصول: '+p.name,'admin');
+  toast('محصول حذف شد','ok'); renderAdminTab();
+}
+
+// ---- configs (new model: stock + per-product config + sold orders) ----
+function adminConfigs(){
+  const rows = db.products.map(p=>{
+    const stock=p.soon?0:(Number(p.stock)||0);
+    const hasCfg = p.config && p.config.indexOf('PLACEHOLDER')<0 && p.config.length>10;
+    return `<tr>
+      <td>${p.name}</td>
+      <td>${hasCfg?'<span class="status st-active">تنظیم‌شده</span>':'<span class="status st-pending">نیاز به تنظیم</span>'}</td>
+      <td>${p.soon?'—':(stock>0?'<span class="status st-active">'+toFa(stock)+'</span>':'<span class="status st-closed">۰</span>')}</td>
+      <td style="max-width:240px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px" class="mono" title="${(p.config||'').replace(/"/g,'&quot;')}">${hasCfg?p.config.slice(0,40)+'…':'—'}</td>
+      <td>
+        <button class="btn btn-ghost btn-sm" onclick="openProductModalFull('${p.id}')" title="ویرایش کانفیگ و موجودی">✏️</button>
+      </td>
+    </tr>`;
+  }).join('');
+  // also show sold configs (orders) for traceability
+  const soldRows = db.orders.map(o=>{
+    const p=db.products.find(x=>x.id===o.productId)||{name:'(حذف‌شده)'};
+    const u=db.users.find(x=>x.id===o.userId);
+    const expired = o.expiresAt && o.expiresAt<=Date.now();
+    return `<tr>
+      <td class="mono">#${o.id.slice(-6)}</td>
+      <td>${p.name}</td>
+      <td><span class="status st-answered">فروخته‌شده</span></td>
+      <td>${u?'@'+u.username:'—'}</td>
+      <td style="font-size:12px">${o.expiresAt?fmtDate(o.expiresAt):'—'}</td>
+      <td>${expired?'<span class="status st-expired">منقضی</span>':'<span class="status st-active">فعال</span>'}</td>
+      <td></td>
+    </tr>`;
+  }).join('');
+  return `
+    <div class="section-head"><div><h2>موجودی و کانفیگ محصولات</h2><div class="sub">هر محصول یک کانفیگ واقعی دارد که تا «موجودی» بار فروخته می‌شود</div></div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>محصول</th><th>کانفیگ</th><th>موجودی</th><th>لینک کانفیگ</th><th>عملیات</th></tr></thead>
+      <tbody>${rows||'<tr><td colspan="5" style="text-align:center;color:var(--text-3)">محصولی ثبت نشده</td></tr>'}</tbody>
+    </table></div>
+    <div class="section-head" style="margin-top:28px"><div><h2>کانفیگ‌های فروخته‌شده</h2><div class="sub">سوابق خرید کاربران</div></div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>سفارش</th><th>محصول</th><th>وضعیت</th><th>خریدار</th><th>انقضا</th><th>فعالیت</th><th>عملیات</th></tr></thead>
+      <tbody>${soldRows||'<tr><td colspan="7" style="text-align:center;color:var(--text-3)">هنوز فروشی ثبت نشده</td></tr>'}</tbody>
+    </table></div>
+  `;
+}
+function deleteConfig(cid){
+  // Legacy stub. In the new model, configs are part of the product itself.
+  // To change a product's config, use openProductModalFull from the products tab.
+  toast('برای تغییر کانفیگ، محصول را از تب «محصولات» ویرایش کنید','warn');
+}
+
+// ---- charges ----
+function adminCharges(){
+  const list=db.charges.slice().sort((a,b)=>b.ts-a.ts);
+  return `
+    <div class="section-head"><div><h2>درخواست‌های شارژ</h2><div class="sub">تایید یا رد رسیدها</div></div></div>
+    ${list.length?
+      `<div class="table-wrap"><table>
+      <thead><tr><th>کاربر</th><th>مبلغ</th><th>تاریخ</th><th>رسید</th><th>یادداشت</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+      <tbody>${list.map(c=>{
+        const u=db.users.find(x=>x.id===c.userId);
+        return `<tr>
+          <td>@${u?u.username:'—'}<br><span class="muted" style="font-size:11px">${u?u.name:''}</span></td>
+          <td style="color:var(--neon);font-weight:700">${fmtToman(c.amount)}</td>
+          <td style="font-size:12px">${fmtDateTime(c.ts)}</td>
+          <td>${c.receipt?`<button class="btn btn-ghost btn-sm" onclick="viewReceipt('${c.id}')">🖼️</button>`:'<span class="muted">ندارد</span>'}</td>
+          <td style="font-size:12px;color:var(--text-3)">${c.note||'—'}</td>
+          <td>${chargeStatusPill(c.status)}</td>
+          <td>${c.status==='pending'?`
+            <button class="btn btn-primary btn-sm" onclick="approveCharge('${c.id}')">تایید</button>
+            <button class="btn btn-danger btn-sm" onclick="rejectCharge('${c.id}')">رد</button>
+          `:'—'}</td>
+        </tr>`;}).join('')}</tbody></table></div>`
+      : `<div class="empty"><div class="ico">💰</div>درخواستی وجود ندارد</div>`}
+  `;
+}
+function approveCharge(cid){
+  const c=db.charges.find(x=>x.id===cid); if(!c) return;
+  const u=db.users.find(x=>x.id===c.userId); if(!u) return;
+  if(c.status!=='pending') return;
+  u.wallet += c.amount;
+  c.status='approved'; c.decidedAt=Date.now();
+  DB.save(db);
+  addLog(`تایید شارژ ${fmtToman(c.amount)} برای ${u.username} (موجودی جدید: ${fmtToman(u.wallet)})`,'admin');
+  toast('شارژ تایید شد و موجودی کاربر افزایش یافت','ok'); renderAdminTab();
+}
+function rejectCharge(cid){
+  const c=db.charges.find(x=>x.id===cid); if(!c) return;
+  if(c.status!=='pending') return;
+  const note=prompt('دلیل رد رسید (اختیاری):')||'';
+  c.status='rejected'; c.decidedAt=Date.now(); c.note=(c.note?c.note+' | ':'')+('رد: '+note).trim();
+  DB.save(db);
+  addLog(`رد شارژ ${fmtToman(c.amount)} برای کاربر ${c.userId}`,'admin');
+  toast('درخواست رد شد','warn'); renderAdminTab();
+}
+
+// ---- orders ----
+function adminOrders(){
+  const list=db.orders.slice().sort((a,b)=>b.createdAt-a.createdAt);
+  return `
+    <div class="section-head"><div><h2>سفارش‌ها</h2><div class="sub">تمام خریدهای ثبت‌شده</div></div></div>
+    ${list.length?
+      `<div class="table-wrap"><table>
+      <thead><tr><th>شماره</th><th>کاربر</th><th>محصول</th><th>مبلغ</th><th>تاریخ</th><th>وضعیت</th></tr></thead>
+      <tbody>${list.map(o=>{
+        const u=db.users.find(x=>x.id===o.userId);
+        return `<tr>
+          <td class="mono">#${o.id.slice(-6)}</td>
+          <td>@${u?u.username:o.userId}</td>
+          <td>${o.productName}</td>
+          <td style="color:var(--neon)">${fmtToman(o.price)}</td>
+          <td style="font-size:12px">${fmtDate(o.createdAt)}</td>
+          <td>${o.expiresAt>Date.now()? '<span class="status st-active">فعال</span>':'<span class="status st-expired">منقضی</span>'}</td>
+        </tr>`;}).join('')}</tbody></table></div>`
+      : `<div class="empty"><div class="ico">🧾</div>سفارشی ثبت نشده</div>`}
+  `;
+}
+
+// ---- users ----
+function adminUsers(){
+  return `
+    <div class="section-head"><div><h2>کاربران</h2><div class="sub">مدیریت حساب‌ها</div></div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>نام</th><th>یوزر</th><th>موبایل</th><th>ایمیل</th><th>کیف پول</th><th>عضویت</th><th>وضعیت</th><th>عملیات</th></tr></thead>
+      <tbody>${db.users.map(u=>`
+        <tr>
+          <td>${u.name}</td>
+          <td>@${u.username}</td>
+          <td style="font-size:12px">${toFa(u.phone)}</td>
+          <td style="font-size:12px">${u.email}</td>
+          <td style="color:var(--neon)">${fmtToman(u.wallet)}</td>
+          <td style="font-size:12px">${fmtDate(u.createdAt)}</td>
+          <td>${u.active?'<span class="status st-active">فعال</span>':'<span class="status st-closed">غیرفعال</span>'}</td>
+          <td>
+            <button class="btn btn-ghost btn-sm" onclick="toggleUser('${u.id}')">${u.active?'⏸️':'▶️'}</button>
+            <button class="btn btn-ghost btn-sm" onclick="editUserWallet('${u.id}')" title="شارژ مستقیم کیف پول">💰</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteUser('${u.id}')">🗑</button>
+          </td>
+        </tr>`).join('')}</tbody>
+    </table></div>
+  `;
+}
+function toggleUser(uid){
+  const u=db.users.find(x=>x.id===uid); if(!u) return;
+  if(u.username==='demo'){ toast('کاربر دمو قابل تغییر نیست','warn'); return; }
+  u.active=!u.active; DB.save(db);
+  addLog(`${u.active?'فعال‌سازی':'غیرفعال‌سازی'} کاربر: ${u.username}`,'admin');
+  toast(u.active?'کاربر فعال شد':'کاربر غیرفعال شد','ok'); renderAdminTab();
+}
+function editUserWallet(uid){
+  const u=db.users.find(x=>x.id===uid); if(!u) return;
+  openModal(`
+    <div class="modal-head"><h3>شارژ مستقیم کیف پول</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="hint-box">کاربر: <b>@${u.username}</b><br>موجودی فعلی: ${fmtToman(u.wallet)}</div>
+      <div class="field"><label>مبلغ تغییر (مثبت برای افزایش، منفی برای کسر)</label><input id="uwAmount" type="number" step="1000" placeholder="مثلاً ۵۰۰۰۰ یا -۲۰۰۰۰"></div>
+      <div class="field"><label>دلیل (در لاگ ثبت می‌شود)</label><input id="uwReason" type="text" placeholder="مثلاً اصلاح موجودی"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-primary" onclick="saveUserWallet('${uid}')">اعمال</button>
+      <button class="btn btn-ghost" onclick="closeModal()">انصراف</button>
+    </div>
+  `);
+}
+function saveUserWallet(uid){
+  const u=db.users.find(x=>x.id===uid);
+  const amt=parseInt(document.getElementById('uwAmount').value);
+  const reason=document.getElementById('uwReason').value.trim();
+  if(isNaN(amt)){ toast('مبلغ نامعتبر','err'); return; }
+  if(u.wallet+amt<0){ toast('موجودی منفی نمی‌شود','err'); return; }
+  u.wallet+=amt; DB.save(db);
+  addLog(`تغییر دستی کیف پول ${u.username}: ${amt>0?'+':''}${fmtToman(amt)} (${reason||'بدون توضیح'})`,'admin');
+  closeModal(); toast('کیف پول بروز شد','ok'); renderAdminTab();
+}
+function deleteUser(uid){
+  const u=db.users.find(x=>x.id===uid);
+  if(u.username==='demo'){ toast('کاربر دمو قابل حذف نیست','warn'); return; }
+  if(!confirm('حذف این کاربر و تمام سفارش/تیکت‌هایش؟')) return;
+  db.orders=db.orders.filter(o=>o.userId!==uid);
+  db.charges=db.charges.filter(c=>c.userId!==uid);
+  db.tickets=db.tickets.filter(t=>t.userId!==uid);
+  db.users=db.users.filter(x=>x.id!==uid);
+  DB.save(db); addLog('حذف کاربر: '+u.username,'admin');
+  toast('کاربر حذف شد','ok'); renderAdminTab();
+}
+
+// ---- tickets (admin) ----
+function adminTickets(){
+  const list=db.tickets.slice().sort((a,b)=>b.updatedAt-a.updatedAt);
+  return `
+    <div class="section-head"><div><h2>تیکت‌ها</h2><div class="sub">پاسخ به پشتیبانی کاربران</div></div></div>
+    ${list.length? list.map(t=>adminTicketCard(t)).join('') :
+      `<div class="empty"><div class="ico">📨</div>تیکتی وجود ندارد</div>`}
+  `;
+}
+function adminTicketCard(t){
+  const u=db.users.find(x=>x.id===t.userId);
+  const replies=(t.replies||[]).map(r=>`
+    <div class="ticket-msg ${r.from==='user'?'ticket-reply':''}">
+      <div style="font-size:11px;color:var(--text-3);margin-bottom:4px">${r.from==='admin'?'پشتیبانی':'کاربر'} · ${fmtDateTime(r.ts)}</div>
+      ${escapeHtml(r.text)}
+    </div>`).join('');
+  return `<div class="ticket-card">
+    <div class="ticket-head">
+      <div><div class="ticket-subject">${escapeHtml(t.subject)} <span class="tag">#${t.id.slice(-4)}</span>
+        <span class="tag" style="color:var(--neon-soft)">@${u?u.username:'?'}</span></div></div>
+      <div>${ticketStatusPill(t.status)}</div>
+    </div>
+    <div class="ticket-msg">
+      <div style="font-size:11px;color:var(--text-3);margin-bottom:4px">کاربر · ${fmtDateTime(t.createdAt)}</div>
+      ${escapeHtml(t.message)}
+    </div>
+    ${replies}
+    ${t.status!=='closed'?`
+      <div class="flex mt">
+        <input id="arep_${t.id}" type="text" placeholder="پاسخ پشتیبانی..." style="flex:1;padding:9px 12px;border-radius:9px;background:var(--bg-1);border:1px solid var(--border-2);color:var(--text);font-size:13px">
+        <button class="btn btn-primary btn-sm" onclick="adminReply('${t.id}')">ارسال</button>
+        <button class="btn btn-ghost btn-sm" onclick="adminClose('${t.id}')">بستن</button>
+      </div>`:`<div class="muted mt" style="font-size:12px">تیکت بسته شده.</div>`}
+  </div>`;
+}
+function adminReply(tid){
+  const t=db.tickets.find(x=>x.id===tid); if(!t) return;
+  const inp=document.getElementById('arep_'+tid);
+  const txt=inp.value.trim(); if(!txt) return;
+  t.replies=t.replies||[]; t.replies.push({from:'admin',text:txt,ts:Date.now()});
+  t.status='answered'; t.updatedAt=Date.now(); DB.save(db);
+  addLog('پاسخ مدیر به تیکت: '+t.subject,'admin');
+  toast('پاسخ ارسال شد','ok'); renderAdminTab();
+}
+function adminClose(tid){
+  const t=db.tickets.find(x=>x.id===tid); if(!t) return;
+  t.status='closed'; t.updatedAt=Date.now(); DB.save(db);
+  addLog('بستن تیکت توسط مدیر: '+t.subject,'admin');
+  toast('تیکت بسته شد','ok'); renderAdminTab();
+}
+
+// ---- reports ----
+function adminReports(){
+  const totalSales=db.orders.reduce((s,o)=>s+o.price,0);
+  const totalApproved=db.charges.filter(c=>c.status==='approved').reduce((s,c)=>s+c.amount,0);
+  const byCat={v2rayng:0,v2box:0,openvpn:0};
+  db.orders.forEach(o=>{const p=db.products.find(x=>x.id===o.productId); if(p) byCat[p.cat]=(byCat[p.cat]||0)+o.price;});
+  const maxCat=Math.max(1,...Object.values(byCat));
+  return `
+    <div class="section-head"><div><h2>گزارش فروش</h2><div class="sub">تحلیل عملکرد فروشگاه</div></div></div>
+    <div class="dash-cards">
+      <div class="stat-card"><div class="lbl">فروش کل</div><div class="val neon">${fmtToman(totalSales)}</div></div>
+      <div class="stat-card"><div class="lbl">شارژ تاییدشده</div><div class="val">${fmtToman(totalApproved)}</div></div>
+      <div class="stat-card"><div class="lbl">تعداد سفارش</div><div class="val">${toFa(db.orders.length)}</div></div>
+      <div class="stat-card"><div class="lbl">میانگین سفارش</div><div class="val">${fmtToman(db.orders.length?Math.round(totalSales/db.orders.length):0)}</div></div>
+    </div>
+    <div class="panel mt-lg">
+      <h3 style="font-size:16px;margin-bottom:14px">فروش به تفکیک دسته</h3>
+      ${Object.entries(byCat).map(([k,v])=>`
+        <div style="margin-bottom:12px">
+          <div class="spread" style="font-size:13px;margin-bottom:6px">
+            <span>${k==='v2rayng'?'V2RayNG':k==='v2box'?'V2Box':'OpenVPN'}</span>
+            <span style="color:var(--neon);font-weight:700">${fmtToman(v)}</span>
+          </div>
+          <div class="progress"><div style="width:${(v/maxCat)*100}%;background:linear-gradient(90deg,var(--neon),var(--accent-2))"></div></div>
+        </div>`).join('')}
+    </div>
+    <div class="section-head"><div><h2>پرفروش‌ترین محصولات</h2></div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>محصول</th><th>تعداد فروش</th><th>درآمد</th></tr></thead>
+      <tbody>${
+        db.products.map(p=>{
+          const os=db.orders.filter(o=>o.productId===p.id);
+          const sum=os.reduce((s,o)=>s+o.price,0);
+          return {name:p.name, count:os.length, sum};
+        }).sort((a,b)=>b.count-a.count).map(r=>
+          `<tr><td>${r.name}</td><td>${toFa(r.count)}</td><td style="color:var(--neon)">${fmtToman(r.sum)}</td></tr>`
+        ).join('')
+      }</tbody>
+    </table></div>
+  `;
+}
+
+// ---- logs ----
+function adminLogs(){
+  return `
+    <div class="section-head"><div><h2>لاگ‌های سیستمی</h2><div class="sub">رویدادهای مهم مدیریتی</div></div></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>زمان</th><th>کاربر</th><th>رویداد</th></tr></thead>
+      <tbody>${db.logs.map(l=>`<tr><td style="font-size:12px">${fmtDateTime(l.ts)}</td><td>${l.actor}</td><td>${l.action}</td></tr>`).join('')}</tbody>
+    </table></div>
+  `;
+}
+
+// ---- settings ----
+function adminSettings(){
+  return `
+    <div class="section-head"><div><h2>تنظیمات</h2><div class="sub">پیکربندی فروشگاه</div></div></div>
+    <div class="panel" style="max-width:560px">
+      <div class="field"><label>نام فروشگاه</label><input id="stName" type="text" value="${db.settings.shopName}"></div>
+      <div class="field"><label>شماره کارت دریافت پرداخت</label><input id="stCard" type="text" value="${db.settings.paymentCard}"></div>
+      <div class="field"><label>نام صاحب کارت</label><input id="stName2" type="text" value="${db.settings.paymentName}"></div>
+      <div class="field"><label>توضیح پرداخت</label><textarea id="stDesc">${db.settings.paymentDesc}</textarea></div>
+      <button class="btn btn-primary" onclick="saveSettings()">ذخیره تنظیمات</button>
+    </div>
+    <div class="panel mt-lg" style="max-width:560px;border-color:rgba(255,93,108,.3)">
+      <h3 style="font-size:15px;color:var(--danger);margin-bottom:10px">منطقه خطر</h3>
+      <p class="muted" style="font-size:12px;margin-bottom:10px">بازنشانی تمام داده‌ها به حالت اولیه. این عمل قابل بازگشت نیست.</p>
+      <button class="btn btn-danger" onclick="resetData()">🗑 بازنشانی کامل دیتابیس</button>
+    </div>
+  `;
+}
+function saveSettings(){
+  db.settings.shopName=document.getElementById('stName').value.trim();
+  db.settings.paymentCard=document.getElementById('stCard').value.trim();
+  db.settings.paymentName=document.getElementById('stName2').value.trim();
+  db.settings.paymentDesc=document.getElementById('stDesc').value.trim();
+  DB.save(db); addLog('بروزرسانی تنظیمات فروشگاه','admin');
+  toast('تنظیمات ذخیره شد','ok');
+}
+function resetData(){
+  if(!confirm('تمام داده‌ها حذف و به حالت اولیه بازمی‌گردد. مطمئنید؟')) return;
+  DB.reset(); db=DB.load();
+  addLog('بازنشانی کامل دیتابیس توسط مدیر','admin');
+  toast('دیتابیس بازنشانی شد','warn');
+  logout();
+}
+</script>
+<script>
+// ============ ADMIN LOGIN PAGE ============
+// inject login page into pages container
+(function(){
+  const div=document.createElement('section');
+  div.className='page'; div.id='page-adminLogin';
+  div.innerHTML=`<div class="auth-wrap"><div class="panel">
+    <div class="panel-title center">پنل مدیریت</div>
+    <div class="panel-sub center">دسترسی فقط برای مدیران · احراز هویت دو مرحله‌ای</div>
+    <form onsubmit="return doAdminLogin(event)">
+      <div class="field"><label>نام کاربری مدیر</label><input id="adUser" type="text" placeholder="admin" required></div>
+      <div class="field"><label>رمز عبور</label><input id="adPass" type="password" placeholder="••••••••" required></div>
+      <button class="btn btn-primary" style="width:100%">ورود به پنل مدیریت</button>
+    </form>
+    <div class="auth-switch"><a onclick="nav('home')">→ بازگشت به سایت</a></div>
+  </div></div>`;
+  document.getElementById('app').appendChild(div);
+})();
+function doAdminLogin(e){
+  e.preventDefault();
+  const u=adUser.value.trim(), p=adPass.value;
+  if(u===db.admin.username && p===db.admin.password){
+    open2FAModal();
+  }else{
+    toast('اطلاعات مدیر اشتباه است','err');
+  }
+  return false;
+}
+</script>
+<script>
+// ============ INIT ============
+function init(){
+  syncTopbar();
+  renderHome();
+  // expose nav for inline onclicks that might fire before nav defined - already global
+}
+init();
+</script>
+</body>
+</html>
